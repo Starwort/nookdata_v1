@@ -1,0 +1,242 @@
+body[theme=light] .mdc-card.card-winter,
+body:not([theme=light]) .mdc-card.card-winter {
+  background-color: #3c84c6;
+  color: #000000;
+  color: var(--mdc-theme-text-primary-on-light, #000000);
+}
+
+body[theme=light] .mdc-card.card-spring,
+body:not([theme=light]) .mdc-card.card-spring {
+  background-color: #38761c;
+  color: #000000;
+  color: var(--mdc-theme-text-primary-on-light, #000000);
+}
+
+body[theme=light] .mdc-card.card-summer,
+body:not([theme=light]) .mdc-card.card-summer {
+  background-color: #e69038;
+  color: #000000;
+  color: var(--mdc-theme-text-primary-on-light, #000000);
+}
+
+body[theme=light] .mdc-card.card-autumn,
+body:not([theme=light]) .mdc-card.card-autumn {
+  background-color: #b45f04;
+  color: #000000;
+  color: var(--mdc-theme-text-primary-on-light, #000000);
+}
+
+body[theme=light] .mdc-card.card-inactive,
+body:not([theme=light]) .mdc-card.card-inactive {
+  opacity: 0.6;
+}
+
+body[theme=light] .mdc-card.card-current,
+body:not([theme=light]) .mdc-card.card-current {
+  border-color: red;
+}
+
+body {
+  text-align: center;
+  overflow-y: overlay;
+}
+
+main {
+  display: inline-block;
+  text-align: initial;
+}
+
+.month-panels {
+  width: 100%;
+}
+.month-panels td {
+  width: 33%;
+  text-align: center;
+}
+
+.critter-info {
+  text-align: center;
+}
+
+.time-tracker {
+  width: 100%;
+}
+
+.padded-container {
+  margin: 16px;
+  text-align: center;
+}
+.padded-container > table {
+  display: inline-block;
+  text-align: initial;
+}
+
+body .critter-panel.no-match {
+  opacity: 0.3;
+}
+body .critter-panel.unavailable {
+  background-color: var(--mdc-theme-error);
+  color: var(--mdc-theme-on-error);
+}
+body .critter-panel.obtained {
+  background-color: var(--mdc-theme-primary);
+  color: var(--mdc-theme-on-primary);
+}
+
+.cursor-alias {
+  cursor: alias;
+}
+
+.cursor-all-scroll {
+  cursor: all-scroll;
+}
+
+.cursor-auto {
+  cursor: auto;
+}
+
+.cursor-cell {
+  cursor: cell;
+}
+
+.cursor-context-menu {
+  cursor: context-menu;
+}
+
+.cursor-col-resize {
+  cursor: col-resize;
+}
+
+.cursor-copy {
+  cursor: copy;
+}
+
+.cursor-crosshair {
+  cursor: crosshair;
+}
+
+.cursor-default {
+  cursor: default;
+}
+
+.cursor-e-resize {
+  cursor: e-resize;
+}
+
+.cursor-ew-resize {
+  cursor: ew-resize;
+}
+
+.cursor-grab {
+  cursor: grab;
+}
+
+.cursor-grabbing {
+  cursor: grabbing;
+}
+
+.cursor-help {
+  cursor: help;
+}
+
+.cursor-move {
+  cursor: move;
+}
+
+.cursor-n-resize {
+  cursor: n-resize;
+}
+
+.cursor-ne-resize {
+  cursor: ne-resize;
+}
+
+.cursor-nesw-resize {
+  cursor: nesw-resize;
+}
+
+.cursor-ns-resize {
+  cursor: ns-resize;
+}
+
+.cursor-nw-resize {
+  cursor: nw-resize;
+}
+
+.cursor-nwse-resize {
+  cursor: nwse-resize;
+}
+
+.cursor-no-drop {
+  cursor: no-drop;
+}
+
+.cursor-none {
+  cursor: none;
+}
+
+.cursor-not-allowed {
+  cursor: not-allowed;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.cursor-progress {
+  cursor: progress;
+}
+
+.cursor-row-resize {
+  cursor: row-resize;
+}
+
+.cursor-s-resize {
+  cursor: s-resize;
+}
+
+.cursor-se-resize {
+  cursor: se-resize;
+}
+
+.cursor-sw-resize {
+  cursor: sw-resize;
+}
+
+.cursor-text {
+  cursor: text;
+}
+
+.cursor-w-resize {
+  cursor: w-resize;
+}
+
+.cursor-wait {
+  cursor: wait;
+}
+
+.cursor-zoom-in {
+  cursor: zoom-in;
+}
+
+.cursor-zoom-out {
+  cursor: zoom-out;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #7f7f7f1f;
+  border-radius: 2.5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #7f7f7f3f;
+}
+::-webkit-scrollbar-thumb:active {
+  background-color: #7f7f7f7f;
+}

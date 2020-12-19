@@ -1,0 +1,153 @@
+body[theme="light"] .mdc-card.card-winter,
+body:not([theme="light"]) .mdc-card.card-winter {
+    background-color: #3c84c6;
+    color: #000000;
+    color: var(--mdc-theme-text-primary-on-light, #000000);
+}
+
+body[theme="light"] .mdc-card.card-spring,
+body:not([theme="light"]) .mdc-card.card-spring {
+    background-color: #38761c;
+    color: #000000;
+    color: var(--mdc-theme-text-primary-on-light, #000000);
+}
+
+body[theme="light"] .mdc-card.card-summer,
+body:not([theme="light"]) .mdc-card.card-summer {
+    background-color: #e69038;
+    color: #000000;
+    color: var(--mdc-theme-text-primary-on-light, #000000);
+}
+
+body[theme="light"] .mdc-card.card-autumn,
+body:not([theme="light"]) .mdc-card.card-autumn {
+    background-color: #b45f04;
+    color: #000000;
+    color: var(--mdc-theme-text-primary-on-light, #000000);
+}
+
+body[theme="light"] .mdc-card.card-inactive,
+body:not([theme="light"]) .mdc-card.card-inactive {
+    opacity: 0.6;
+}
+
+body[theme="light"] .mdc-card.card-current,
+body:not([theme="light"]) .mdc-card.card-current {
+    border-color: red;
+}
+
+body {
+    text-align: center;
+    overflow-y: overlay;
+}
+
+main {
+    display: inline-block;
+    text-align: initial;
+}
+
+.month-panels {
+    width: 100%;
+    & td {
+        width: 33%;
+        text-align: center;
+    }
+}
+
+.critter-info {
+    text-align: center;
+}
+
+.time-tracker {
+    width: 100%;
+    // background-color: #1e1e1e;
+}
+
+.padded-container {
+    margin: 16px;
+    text-align: center;
+
+    & > table {
+        display: inline-block;
+        text-align: initial;
+    }
+}
+
+body .critter-panel {
+    &.no-match {
+        opacity: 0.3;
+    }
+
+    &.unavailable {
+        background-color: var(--mdc-theme-error);
+        color: var(--mdc-theme-on-error);
+    }
+
+    &.obtained {
+        background-color: var(--mdc-theme-primary);
+        color: var(--mdc-theme-on-primary);
+    }
+}
+
+$cursor-modes: (
+    alias,
+    all-scroll,
+    auto,
+    cell,
+    context-menu,
+    col-resize,
+    copy,
+    crosshair,
+    default,
+    e-resize,
+    ew-resize,
+    grab,
+    grabbing,
+    help,
+    move,
+    n-resize,
+    ne-resize,
+    nesw-resize,
+    ns-resize,
+    nw-resize,
+    nwse-resize,
+    no-drop,
+    none,
+    not-allowed,
+    pointer,
+    progress,
+    row-resize,
+    s-resize,
+    se-resize,
+    sw-resize,
+    text,
+    w-resize,
+    wait,
+    zoom-in,
+    zoom-out
+);
+
+@each $mode in $cursor-modes {
+    .cursor-#{$mode} {
+        cursor: $mode;
+    }
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+    &-track {
+        background-color: transparent;
+    }
+    &-thumb {
+        background-color: #7f7f7f1f;
+        border-radius: 2.5px;
+        // transition: background-color 0.2s ease-in-out;
+        &:hover {
+            background-color: #7f7f7f3f;
+        }
+        &:active {
+            background-color: #7f7f7f7f;
+        }
+    }
+}
