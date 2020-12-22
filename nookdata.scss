@@ -138,6 +138,7 @@ $cursor-modes: (
     width: 5px;
     height: 5px;
     &-track,
+    &-track:horizontal,
     &-corner {
         background-color: transparent;
     }
