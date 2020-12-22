@@ -228,7 +228,7 @@ body .critter-panel.obtained {
   width: 5px;
   height: 5px;
 }
-::-webkit-scrollbar-track {
+::-webkit-scrollbar-track, ::-webkit-scrollbar-corner {
   background-color: transparent;
 }
 ::-webkit-scrollbar-thumb {

@@ -137,7 +137,8 @@ $cursor-modes: (
 ::-webkit-scrollbar {
     width: 5px;
     height: 5px;
-    &-track {
+    &-track,
+    &-corner {
         background-color: transparent;
     }
     &-thumb {
