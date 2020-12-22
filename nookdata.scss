@@ -38,7 +38,7 @@ body:not([theme="light"]) .mdc-card.card-current {
 
 body {
     text-align: center;
-    overflow-y: overlay;
+    overflow: overlay;
 }
 
 main {
@@ -138,7 +138,6 @@ $cursor-modes: (
     width: 5px;
     height: 5px;
     &-track,
-    &-track:horizontal,
     &-corner {
         background-color: transparent;
     }

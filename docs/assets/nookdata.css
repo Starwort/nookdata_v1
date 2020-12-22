@@ -38,7 +38,7 @@ body:not([theme=light]) .mdc-card.card-current {
 
 body {
   text-align: center;
-  overflow-y: overlay;
+  overflow: overlay;
 }
 
 main {
@@ -228,7 +228,7 @@ body .critter-panel.obtained {
   width: 5px;
   height: 5px;
 }
-::-webkit-scrollbar-track, ::-webkit-scrollbar-track:horizontal, ::-webkit-scrollbar-corner {
+::-webkit-scrollbar-track, ::-webkit-scrollbar-corner {
   background-color: transparent;
 }
 ::-webkit-scrollbar-thumb {
