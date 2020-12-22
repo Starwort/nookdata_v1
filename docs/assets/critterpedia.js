@@ -150,6 +150,7 @@ function ready() {
             load_or_unload_dialogue(null, true);
         })
     }
+    var data = get_data();
 }
 window.begin_scripts = ready;
 
