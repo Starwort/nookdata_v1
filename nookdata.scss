@@ -9,41 +9,42 @@ $primary-light: #6200ee;
 
 @use "sass:color";
 
-body[theme="light"] .mdc-card.card-winter,
-body:not([theme="light"]) .mdc-card.card-winter {
+@font-face {
+    font-family: "ACNH";
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://starwort.github.io/nookdata/assets/humming.ttf) format("ttf");
+}
+
+body[theme] .mdc-card.card-winter {
     background-color: $winter;
     color: #000000;
     color: var(--mdc-theme-text-primary-on-light, #000000);
 }
 
-body[theme="light"] .mdc-card.card-spring,
-body:not([theme="light"]) .mdc-card.card-spring {
+body[theme] .mdc-card.card-spring {
     background-color: $spring;
     color: #000000;
     color: var(--mdc-theme-text-primary-on-light, #000000);
 }
 
-body[theme="light"] .mdc-card.card-summer,
-body:not([theme="light"]) .mdc-card.card-summer {
+body[theme] .mdc-card.card-summer {
     background-color: $summer;
     color: #000000;
     color: var(--mdc-theme-text-primary-on-light, #000000);
 }
 
-body[theme="light"] .mdc-card.card-autumn,
-body:not([theme="light"]) .mdc-card.card-autumn {
+body[theme] .mdc-card.card-autumn {
     background-color: $autumn;
     color: #000000;
     color: var(--mdc-theme-text-primary-on-light, #000000);
 }
 
-body[theme="light"] .mdc-card.card-inactive,
-body:not([theme="light"]) .mdc-card.card-inactive {
-    opacity: 0.6;
+body[theme] .mdc-card.card-inactive {
+    opacity: 0.3;
 }
 
-body[theme="light"] .mdc-card.card-current,
-body:not([theme="light"]) .mdc-card.card-current {
+body[theme] .mdc-card.card-current {
     border-color: red;
 }
 
