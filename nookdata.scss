@@ -16,26 +16,46 @@ $primary-light: #6200ee;
     src: url(https://starwort.github.io/nookdata/assets/humming.ttf) format("ttf");
 }
 
-body[theme] .mdc-card.card-winter {
-    background-color: $winter;
+.mdc-card.card-winter {
+    body[hemisphere="south"] & {
+        background-color: $summer;
+    }
+    body:not([hemisphere="south"]) & {
+        background-color: $winter;
+    }
     color: #000000;
     color: var(--mdc-theme-text-primary-on-light, #000000);
 }
 
-body[theme] .mdc-card.card-spring {
-    background-color: $spring;
+.mdc-card.card-spring {
+    body[hemisphere="south"] & {
+        background-color: $autumn;
+    }
+    body:not([hemisphere="south"]) & {
+        background-color: $spring;
+    }
     color: #000000;
     color: var(--mdc-theme-text-primary-on-light, #000000);
 }
 
-body[theme] .mdc-card.card-summer {
-    background-color: $summer;
+.mdc-card.card-summer {
+    body[hemisphere="south"] & {
+        background-color: $winter;
+    }
+    body:not([hemisphere="south"]) & {
+        background-color: $summer;
+    }
     color: #000000;
     color: var(--mdc-theme-text-primary-on-light, #000000);
 }
 
-body[theme] .mdc-card.card-autumn {
-    background-color: $autumn;
+.mdc-card.card-autumn {
+    body[hemisphere="south"] & {
+        background-color: $spring;
+    }
+    body:not([hemisphere="south"]) & {
+        background-color: $autumn;
+    }
     color: #000000;
     color: var(--mdc-theme-text-primary-on-light, #000000);
 }
@@ -127,28 +147,40 @@ main {
         color: var(--mdc-theme-on-error);
     }
 
-    body[theme="dark"] & {
-        &.obtained {
+    &.obtained {
+        body[theme="dark"] & {
             background-color: transparentize($primary-dark, 0.5);
             border: 1px solid $primary-dark;
             color: $primary-dark;
+            & + div .mdc-dialog__surface {
+                border: 1px solid $primary-dark;
+            }
         }
-        &.modelled {
-            background-color: transparentize($modelled-dark, 0.5);
-            border: 1px solid $modelled-dark;
-            color: $modelled-dark;
-        }
-    }
-    body[theme="light"] & {
-        &.obtained {
+        body[theme="light"] & {
             background-color: transparentize($primary-light, 0.5);
             border: 1px solid $primary-light;
             color: $primary-light;
+            & + div .mdc-dialog__surface {
+                border: 1px solid $primary-light;
+            }
         }
-        &.modelled {
+    }
+    &.modelled {
+        body[theme="dark"] & {
+            background-color: transparentize($modelled-dark, 0.5);
+            border: 1px solid $modelled-dark;
+            color: $modelled-dark;
+            & + div .mdc-dialog__surface {
+                border: 1px solid $modelled-dark;
+            }
+        }
+        body[theme="light"] & {
             background-color: transparentize($modelled-light, 0.5);
             border: 1px solid $modelled-light;
             color: $modelled-light;
+            & + div .mdc-dialog__surface {
+                border: 1px solid $modelled-light;
+            }
         }
     }
 }

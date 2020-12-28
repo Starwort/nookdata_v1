@@ -4,28 +4,48 @@
   font-weight: 400;
   src: url(https://starwort.github.io/nookdata/assets/humming.ttf) format("ttf");
 }
-body[theme] .mdc-card.card-winter {
-  background-color: #3c84c6;
+.mdc-card.card-winter {
   color: #000000;
   color: var(--mdc-theme-text-primary-on-light, #000000);
 }
-
-body[theme] .mdc-card.card-spring {
-  background-color: #38761c;
-  color: #000000;
-  color: var(--mdc-theme-text-primary-on-light, #000000);
-}
-
-body[theme] .mdc-card.card-summer {
+body[hemisphere=south] .mdc-card.card-winter {
   background-color: #e69038;
+}
+body:not([hemisphere=south]) .mdc-card.card-winter {
+  background-color: #3c84c6;
+}
+
+.mdc-card.card-spring {
   color: #000000;
   color: var(--mdc-theme-text-primary-on-light, #000000);
 }
-
-body[theme] .mdc-card.card-autumn {
+body[hemisphere=south] .mdc-card.card-spring {
   background-color: #b45f04;
+}
+body:not([hemisphere=south]) .mdc-card.card-spring {
+  background-color: #38761c;
+}
+
+.mdc-card.card-summer {
   color: #000000;
   color: var(--mdc-theme-text-primary-on-light, #000000);
+}
+body[hemisphere=south] .mdc-card.card-summer {
+  background-color: #3c84c6;
+}
+body:not([hemisphere=south]) .mdc-card.card-summer {
+  background-color: #e69038;
+}
+
+.mdc-card.card-autumn {
+  color: #000000;
+  color: var(--mdc-theme-text-primary-on-light, #000000);
+}
+body[hemisphere=south] .mdc-card.card-autumn {
+  background-color: #38761c;
+}
+body:not([hemisphere=south]) .mdc-card.card-autumn {
+  background-color: #b45f04;
 }
 
 body[theme=dark] .mdc-card.card-inactive {
@@ -105,20 +125,32 @@ body[theme=dark] .critter-panel.obtained {
   border: 1px solid #bb86fc;
   color: #bb86fc;
 }
-body[theme=dark] .critter-panel.modelled {
-  background-color: rgba(255, 215, 0, 0.5);
-  border: 1px solid gold;
-  color: gold;
+body[theme=dark] .critter-panel.obtained + div .mdc-dialog__surface {
+  border: 1px solid #bb86fc;
 }
 body[theme=light] .critter-panel.obtained {
   background-color: rgba(98, 0, 238, 0.5);
   border: 1px solid #6200ee;
   color: #6200ee;
 }
+body[theme=light] .critter-panel.obtained + div .mdc-dialog__surface {
+  border: 1px solid #6200ee;
+}
+body[theme=dark] .critter-panel.modelled {
+  background-color: rgba(255, 215, 0, 0.5);
+  border: 1px solid gold;
+  color: gold;
+}
+body[theme=dark] .critter-panel.modelled + div .mdc-dialog__surface {
+  border: 1px solid gold;
+}
 body[theme=light] .critter-panel.modelled {
   background-color: rgba(251, 192, 45, 0.5);
   border: 1px solid #fbc02d;
   color: #fbc02d;
+}
+body[theme=light] .critter-panel.modelled + div .mdc-dialog__surface {
+  border: 1px solid #fbc02d;
 }
 
 .cursor-alias {

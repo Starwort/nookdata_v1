@@ -33700,3 +33700,7 @@ body[theme=light] .float-bottom-right {
 .mdc-card__subtitle {
   margin: 0;
 }
+
+.mdc-dialog__actions:empty {
+  display: none !important;
+}
