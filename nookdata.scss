@@ -40,8 +40,13 @@ body[theme] .mdc-card.card-autumn {
     color: var(--mdc-theme-text-primary-on-light, #000000);
 }
 
-body[theme] .mdc-card.card-inactive {
-    opacity: 0.3;
+.mdc-card.card-inactive {
+    body[theme="dark"] & {
+        opacity: 0.3;
+    }
+    body[theme="light"] & {
+        opacity: 0.6;
+    }
 }
 
 body[theme] .mdc-card.card-current {
