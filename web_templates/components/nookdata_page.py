@@ -25,5 +25,6 @@ class NookDataPage(dom.Component):
                 dom.MainContent(*content),
                 mdc.MaterialDesignFinaliser("assets"),
                 dom.Script(trailing_script) if trailing_script else "",
+                theme="dark",
             ),
         )
