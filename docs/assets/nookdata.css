@@ -80,8 +80,11 @@ main {
 .critter-table-title .obtained-count::after {
   content: " ";
 }
-.critter-table-title .modelled-count {
+body[theme=dark] .critter-table-title .modelled-count {
   color: #ffff00;
+}
+body[theme=light] .critter-table-title .modelled-count {
+  color: #fbc02d;
 }
 .critter-table-title .modelled-count::after {
   content: " ";
@@ -110,9 +113,9 @@ body[theme=light] .critter-panel.obtained {
   color: #6200ee;
 }
 body[theme=light] .critter-panel.modelled {
-  background-color: rgba(252, 252, 0, 0.5);
-  border: 1px solid #fcfc00;
-  color: #ffff00;
+  background-color: rgba(251, 192, 45, 0.5);
+  border: 1px solid #fbc02d;
+  color: #fbc02d;
 }
 
 .cursor-alias {

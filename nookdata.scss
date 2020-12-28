@@ -2,9 +2,12 @@ $winter: #3c84c6;
 $spring: #38761c;
 $summer: #e69038;
 $autumn: #b45f04;
-$modelled: #ffff00;
+$modelled-dark: #ffff00;
+$modelled-light: #fbc02d;
 $primary-dark: #bb86fc;
 $primary-light: #6200ee;
+
+@use "sass:color";
 
 body[theme="light"] .mdc-card.card-winter,
 body:not([theme="light"]) .mdc-card.card-winter {
@@ -94,7 +97,12 @@ main {
         }
     }
     & .modelled-count {
-        color: $modelled;
+        body[theme="dark"] & {
+            color: $modelled-dark;
+        }
+        body[theme="light"] & {
+            color: $modelled-light;
+        }
         &::after {
             content: " ";
         }
@@ -120,9 +128,9 @@ main {
             color: $primary-dark;
         }
         &.modelled {
-            background-color: transparentize($modelled, 0.5);
-            border: 1px solid $modelled;
-            color: $modelled;
+            background-color: transparentize($modelled-dark, 0.5);
+            border: 1px solid $modelled-dark;
+            color: $modelled-dark;
         }
     }
     body[theme="light"] & {
@@ -132,9 +140,9 @@ main {
             color: $primary-light;
         }
         &.modelled {
-            background-color: transparentize(darken($modelled, 0.5), 0.5);
-            border: 1px solid darken($modelled, 0.5);
-            color: $modelled;
+            background-color: transparentize($modelled-light, 0.5);
+            border: 1px solid $modelled-light;
+            color: $modelled-light;
         }
     }
 }
