@@ -81,7 +81,7 @@ main {
   content: " ";
 }
 body[theme=dark] .critter-table-title .modelled-count {
-  color: #ffff00;
+  color: gold;
 }
 body[theme=light] .critter-table-title .modelled-count {
   color: #fbc02d;
@@ -103,9 +103,9 @@ body[theme=dark] .critter-panel.obtained {
   color: #bb86fc;
 }
 body[theme=dark] .critter-panel.modelled {
-  background-color: rgba(255, 255, 0, 0.5);
-  border: 1px solid #ffff00;
-  color: #ffff00;
+  background-color: rgba(255, 215, 0, 0.5);
+  border: 1px solid gold;
+  color: gold;
 }
 body[theme=light] .critter-panel.obtained {
   background-color: rgba(98, 0, 238, 0.5);
