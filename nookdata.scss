@@ -13,7 +13,8 @@ $primary-light: #6200ee;
     font-family: "ACNH";
     font-style: normal;
     font-weight: 400;
-    src: url(https://starwort.github.io/nookdata/assets/humming.ttf) format("ttf");
+    src: url(https://starwort.github.io/nookdata/assets/fonts/humming.ttf)
+        format("truetype");
 }
 
 .mdc-card.card-winter {
@@ -76,6 +77,8 @@ body[theme] .mdc-card.card-current {
 body {
     text-align: center;
     overflow: overlay;
+    font-family: "ACNH", sans-serif;
+    --mdc-typography-font-family: "ACNH", sans-serif;
 }
 
 main {
