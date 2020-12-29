@@ -130,6 +130,9 @@ body[theme=dark] .critter-panel.obtained {
 body[theme=dark] .critter-panel.obtained + div .mdc-dialog__surface {
   border: 1px solid #bb86fc;
 }
+body[theme=dark] .critter-panel.obtained + div .mdc-dialog__surface .mdc-dialog__title {
+  color: #bb86fc;
+}
 body[theme=light] .critter-panel.obtained {
   background-color: rgba(98, 0, 238, 0.5);
   border: 1px solid #6200ee;
@@ -137,6 +140,9 @@ body[theme=light] .critter-panel.obtained {
 }
 body[theme=light] .critter-panel.obtained + div .mdc-dialog__surface {
   border: 1px solid #6200ee;
+}
+body[theme=light] .critter-panel.obtained + div .mdc-dialog__surface .mdc-dialog__title {
+  color: #6200ee;
 }
 body[theme=dark] .critter-panel.modelled {
   background-color: rgba(255, 215, 0, 0.5);
@@ -146,6 +152,9 @@ body[theme=dark] .critter-panel.modelled {
 body[theme=dark] .critter-panel.modelled + div .mdc-dialog__surface {
   border: 1px solid gold;
 }
+body[theme=dark] .critter-panel.modelled + div .mdc-dialog__surface .mdc-dialog__title {
+  color: gold;
+}
 body[theme=light] .critter-panel.modelled {
   background-color: rgba(251, 192, 45, 0.5);
   border: 1px solid #fbc02d;
@@ -153,6 +162,9 @@ body[theme=light] .critter-panel.modelled {
 }
 body[theme=light] .critter-panel.modelled + div .mdc-dialog__surface {
   border: 1px solid #fbc02d;
+}
+body[theme=light] .critter-panel.modelled + div .mdc-dialog__surface .mdc-dialog__title {
+  color: #fbc02d;
 }
 
 .cursor-alias {

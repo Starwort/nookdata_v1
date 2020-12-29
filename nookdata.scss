@@ -156,6 +156,9 @@ main {
             border: 1px solid $primary-dark;
             color: $primary-dark;
             & + div .mdc-dialog__surface {
+                & .mdc-dialog__title {
+                    color: $primary-dark;
+                }
                 border: 1px solid $primary-dark;
             }
         }
@@ -164,6 +167,9 @@ main {
             border: 1px solid $primary-light;
             color: $primary-light;
             & + div .mdc-dialog__surface {
+                & .mdc-dialog__title {
+                    color: $primary-light;
+                }
                 border: 1px solid $primary-light;
             }
         }
@@ -174,6 +180,9 @@ main {
             border: 1px solid $modelled-dark;
             color: $modelled-dark;
             & + div .mdc-dialog__surface {
+                & .mdc-dialog__title {
+                    color: $modelled-dark;
+                }
                 border: 1px solid $modelled-dark;
             }
         }
@@ -182,6 +191,9 @@ main {
             border: 1px solid $modelled-light;
             color: $modelled-light;
             & + div .mdc-dialog__surface {
+                & .mdc-dialog__title {
+                    color: $modelled-light;
+                }
                 border: 1px solid $modelled-light;
             }
         }
