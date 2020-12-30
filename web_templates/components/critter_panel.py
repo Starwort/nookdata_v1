@@ -20,8 +20,8 @@ class CritterPanel(Component):
         hours: typing.List[typing.List[bool]],
         type: typing.Literal["bugs", "fish"],
         size_or_none: typing.Optional[int] = None,
-        user_owns: typing.Optional[bool] = False,
-        user_owns_model: typing.Optional[bool] = False,
+        # user_owns: typing.Optional[bool] = False,
+        # user_owns_model: typing.Optional[bool] = False,
     ) -> None:
         self.content = ElementGroup(
             Card(
@@ -53,8 +53,8 @@ class CritterPanel(Component):
                     "data-price": repr(price),
                     "data-size": repr(size_or_none),
                     "data-location": location.lower(),
-                    "data-caught": repr(user_owns).lower(),
-                    "data-model": repr(user_owns_model).lower(),
+                    # "data-caught": repr(user_owns).lower(),
+                    # "data-model": repr(user_owns_model).lower(),
                 },
             ),
             Dialogue(
