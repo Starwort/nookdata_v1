@@ -232,7 +232,7 @@ function search_critters() {
             }
         }
         if (search_parameters.unavailable_soon_only) {
-            if (eval(card.getAttribute("data-times"))[(month+1)%12].some(available => available)) {
+            if (eval(card.getAttribute("data-times"))[(month + 1) % 12].some(available => available)) {
                 card.classList.add("no-match");
             }
         }
