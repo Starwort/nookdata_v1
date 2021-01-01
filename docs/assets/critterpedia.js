@@ -22,10 +22,10 @@ function update() {
     second = now.getSeconds();
     var new_month = now.getMonth();
     var line_colour = window.getComputedStyle(document.querySelector("body"))
-                          .getPropertyValue("--mdc-theme-on-surface")
-                          .trim();
+        .getPropertyValue("--mdc-theme-on-surface")
+        .trim();
     var shorthand_regex = /(?<=^#?)([a-f\d])([a-f\d])([a-f\d])$/i;
-    line_colour = line_colour.replace(shorthand_regex, function(m, r, g, b) {
+    line_colour = line_colour.replace(shorthand_regex, function (m, r, g, b) {
         return r + r + g + g + b + b;
     });
     // console.log(line_colour);
@@ -95,8 +95,7 @@ function draw(canvas_id, canvas_hours, line_colour) {
     var x = canvas.width * (hour * 3600 + minute * 60 + second) / 86400;
     ctx.lineWidth = window.time_tracker_width;
     if (debug)
-        console.log(`[CTIME] x = ${canvas.width} * (${hour} * 3600 + ${minute} * 60 + ${
-            second}) / 86400 = ${x}`);
+        console.log(`[CTIME] x = ${canvas.width} * (${hour} * 3600 + ${minute} * 60 + ${second}) / 86400 = ${x}`);
     ctx.moveTo(x, 0);
     ctx.lineTo(x, canvas.height);
     ctx.stroke();
@@ -183,7 +182,7 @@ window.open_critter_info = open;
 window.load_window_if_required = load_window_if_required;
 window.active_critter_info = null;
 
-window.onpopstate = function(event) {
+window.onpopstate = function (event) {
     load_or_unload_dialogue(event.state, false)
 };
 
@@ -211,13 +210,13 @@ function search_critters() {
         card.classList.remove("no-match");
         if (search_parameters.name) {
             if (!card.getAttribute("data-name")
-                     .includes(search_parameters.name.toLowerCase())) {
+                .includes(search_parameters.name.toLowerCase())) {
                 card.classList.add("no-match");
             }
         }
         if (search_parameters.location) {
             if (!card.getAttribute("data-location")
-                     .includes(search_parameters.location.toLowerCase())) {
+                .includes(search_parameters.location.toLowerCase())) {
                 card.classList.add("no-match");
             }
         }
