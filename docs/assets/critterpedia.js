@@ -5,7 +5,7 @@ var now = new Date();
 var hour = now.getHours();
 var minute = now.getMinutes();
 var second = now.getSeconds();
-var month = (now.getMonth() - 1) % 12;
+var month = (now.getMonth() + 11) % 12;
 function add_time_tracker(canvas_id, hours) {
     canvases[canvas_id] = hours;
 }
