@@ -5,6 +5,8 @@ import dom_generator as dom
 
 
 class TimeTracker(dom.Component):
+    __slots__ = ()
+
     def __init__(self, identifier: str, hours: typing.List[typing.List[bool]]):
         self.content = dom.ElementGroup(
             dom.Canvas(
@@ -63,7 +65,7 @@ class TimeTracker(dom.Component):
                 # ),
                 width=3360,
                 height=140,
-                class_="time-tracker",
+                classes={"time-tracker"},
                 id="time_tracker_canvas_" + identifier,
             ),
             dom.Script(

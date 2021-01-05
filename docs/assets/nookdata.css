@@ -56,7 +56,7 @@ body[theme=light] .mdc-card.card-inactive {
 }
 
 body[theme] .mdc-card.card-current {
-  border-color: red;
+  border: 2px solid var(--mdc-theme-error);
 }
 
 body {
@@ -125,6 +125,10 @@ body[theme=light] .critter-panel {
 .critter-panel i.material-icons {
   display: block;
   padding-top: 16px;
+}
+.critter-panel img {
+  width: 64px;
+  height: 64px;
 }
 .critter-panel.no-match {
   opacity: 0.3;

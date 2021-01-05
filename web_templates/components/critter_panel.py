@@ -7,6 +7,8 @@ from . import CritterInfo
 
 
 class CritterPanel(Component):
+    __slots__ = ()
+
     def __init__(
         self,
         name: str,
@@ -31,9 +33,7 @@ class CritterPanel(Component):
                     classes={"material-icons"},
                 ),
                 Image(
-                    src=f"https://starwort.github.io/nookdata/assets/{type}/{index:0>2}.png",
-                    # src=f"nookdata/assets/{type}/{index:0>2}.png",
-                    style="width:64px; height:64px",
+                    src=f"assets/{type}/{index:0>2}.png",
                 ),
                 onclick=f"open_critter_info('dialogue_{type}_{index:0>2}')",
                 title=(

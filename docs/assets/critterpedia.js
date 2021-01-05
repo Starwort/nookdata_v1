@@ -6,6 +6,7 @@ var hour = now.getHours();
 var minute = now.getMinutes();
 var second = now.getSeconds();
 var month = (now.getMonth() + 11) % 12;
+var month_offset = 0;
 function add_time_tracker(canvas_id, hours) {
     canvases[canvas_id] = hours;
 }
@@ -38,7 +39,7 @@ function update() {
             // f"card_{i}_{identifier}"
             let card = document.getElementById(`card_${card_id}`);
             let icon = document.getElementById(`icon_${card_id}`);
-            if (card.months[new_month] && !card.months[(new_month + 1) % 12]) {
+            if (card.months[(new_month + month_offset) % 12] && !card.months[(new_month + month_offset + 1) % 12]) {
                 icon.innerText = 'warning';
                 card.title = card.name.replace(/(?<=^|\s)\w/g, (match) => (match.toUpperCase())); + '\nUnavailable next month';
                 card.classList.add('danger');
@@ -47,7 +48,7 @@ function update() {
                 card.title = card.name.replace(/(?<=^|\s)\w/g, (match) => (match.toUpperCase()));;
                 card.classList.remove('danger');
                 card.classList.remove('unavailable');
-                if (!card.months[new_month]) {
+                if (!card.months[(new_month + month_offset) % 12]) {
                     card.title += '\nUnavailable';
                     card.classList.add('unavailable');
                 }
@@ -166,6 +167,10 @@ function load_or_unload_dialogue(dialogue, push = true) {
 }
 var critterpedia_data = get_or_insert(nookdata_data, 'critterpedia', {});
 function ready() {
+    document.body.setAttribute('hemisphere', get_or_insert(nookdata_data, 'hemisphere', 'north'));
+    if (nookdata_data.hemisphere == 'south') {
+        month_offset = 6;
+    }
     for (let bug_id = 0; bug_id < 80; bug_id++) {
         let index = bug_id.toString().padStart(2, "0");
         let bug_card = document.getElementById(`card_bugs_${index}`);
@@ -193,12 +198,12 @@ function ready() {
             bug_card.classList.add('modelled');
         }
         let icon = bug_card.firstChild.firstChild.firstChild.firstChild;
-        if (bug_card.months[month] && !bug_card.months[(month + 1) % 12]) {
+        if (bug_card.months[(month + month_offset) % 12] && !bug_card.months[(month + month_offset + 1) % 12]) {
             icon.innerText = 'warning';
             bug_card.classList.add('danger');
         } else {
             icon.innerText = 'help';
-            if (!bug_card.months[month]) {
+            if (!bug_card.months[(month + month_offset) % 12]) {
                 bug_card.classList.add('unavailable');
             }
         }
@@ -232,13 +237,24 @@ function ready() {
             fish_card.classList.add('modelled');
         }
         let icon = fish_card.firstChild.firstChild.firstChild.firstChild;
-        if (fish_card.months[month] && !fish_card.months[(month + 1) % 12]) {
+        if (fish_card.months[(month + month_offset) % 12] && !fish_card.months[(month + month_offset + 1) % 12]) {
             icon.innerText = 'warning';
             fish_card.classList.add('danger');
         } else {
             icon.innerText = 'help';
-            if (!fish_card.months[month]) {
+            if (!fish_card.months[(month + month_offset) % 12]) {
                 fish_card.classList.add('unavailable');
+            }
+        }
+    }
+    for (let card_id of card_sets) {
+        for (let month = 0; month < 12; month++) {
+            let month_card = document.getElementById(`card_${month}_${card_id}`);
+            let card = document.getElementById(`card_${card_id}`);
+            if (card.months[(month + month_offset) % 12]) {
+                month_card.classList.remove('card-inactive');
+            } else {
+                month_card.classList.add('card-inactive');
             }
         }
     }

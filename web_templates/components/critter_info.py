@@ -7,6 +7,8 @@ from .time_tracker import TimeTracker
 
 
 class CritterInfo(Component):
+    __slots__ = ()
+
     def __init__(
         self,
         normal_name: str,
@@ -23,10 +25,10 @@ class CritterInfo(Component):
             [
                 Anchor(
                     "arrow_back" if index else "_",
-                    class_=(
-                        "material-icons "
-                        + ("cursor-pointer" if index else "cursor-default")
-                    ),
+                    classes={
+                        "material-icons",
+                        ("cursor-pointer" if index else "cursor-default"),
+                    },
                     onclick=(
                         f"switch_critter('dialogue_{type}_{index - 1:0>2}')"
                         if index
@@ -42,10 +44,10 @@ class CritterInfo(Component):
                 ),
                 Anchor(
                     "arrow_forward" if index < 79 else "_",
-                    class_=(
-                        "material-icons "
-                        + ("cursor-pointer" if index < 79 else "cursor-default")
-                    ),
+                    classes={
+                        "material-icons",
+                        ("cursor-pointer" if index < 79 else "cursor-default"),
+                    },
                     onclick=(
                         f"switch_critter('dialogue_{type}_{index + 1:0>2}')"
                         if index < 79

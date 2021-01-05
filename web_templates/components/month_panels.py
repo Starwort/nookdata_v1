@@ -9,6 +9,8 @@ def chunk(data, n: int):
 
 
 class MonthPanels(Component):
+    __slots__ = ()
+
     def __init__(self, hours: typing.List[typing.List[bool]], identifier: str) -> None:
         self.content = ElementGroup(
             Table(
@@ -16,10 +18,12 @@ class MonthPanels(Component):
                     [
                         Card(
                             content=month,
-                            class_=(
-                                "card-"
-                                + season
-                                + (" card-inactive" if not any(times) else "")
+                            classes=(
+                                {
+                                    "card-" + season,
+                                    ("card-inactive" if not any(times) else ""),
+                                }
+                                - {""}
                             ),
                             id=f"card_{i}_{identifier}",
                             outlined=True,
@@ -60,7 +64,7 @@ class MonthPanels(Component):
                     ],
                     3,
                 ),
-                class_="month-panels",
+                classes={"month-panels"},
             ),
             Script(f"add_card_set({identifier!r});"),
         )

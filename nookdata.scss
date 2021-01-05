@@ -73,7 +73,7 @@ $error-light: #b00020;
 }
 
 body[theme] .mdc-card.card-current {
-    border-color: red;
+    border: 2px solid var(--mdc-theme-error);
 }
 
 body {
@@ -153,6 +153,11 @@ main {
     & i.material-icons {
         display: block;
         padding-top: 16px;
+    }
+
+    & img {
+        width: 64px;
+        height: 64px;
     }
 
     &.no-match {
