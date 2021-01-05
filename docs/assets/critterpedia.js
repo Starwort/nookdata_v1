@@ -267,8 +267,8 @@ function ready() {
             }
         }
     }
-    document.getElementById('obtained_bugs').innerText = obtained_bugs;
-    document.getElementById('modelled_bugs').innerText = modelled_bugs;
+    document.getElementById('obtained_fish').innerText = obtained_fish;
+    document.getElementById('modelled_fish').innerText = modelled_fish;
     for (let card_id of card_sets) {
         for (let month = 0; month < 12; month++) {
             let month_card = document.getElementById(`card_${month}_${card_id}`);
