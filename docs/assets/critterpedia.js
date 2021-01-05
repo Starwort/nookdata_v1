@@ -17,6 +17,7 @@ window.add_card_set = add_card_set;
 
 function update() {
     now = new Date();
+    let old_hour = hour;
     hour = now.getHours();
     minute = now.getMinutes();
     second = now.getSeconds();
@@ -41,6 +42,11 @@ function update() {
                 .classList.add("card-current");
         }
         month = new_month;
+    }
+    if (old_hour != hour) {
+        if (search_parameters.available_now_only) {
+            search_critters();
+        }
     }
 }
 
@@ -144,7 +150,7 @@ function ready() {
     update();
     /** @type {MDCDialog} */
     var dialogue;
-    var dialogue_id
+    var dialogue_id;
     for ([dialogue_id, dialogue] of Object.entries(window.dialogues)) {
         dialogue.listen("MDCDialog:closing", () => {
             load_or_unload_dialogue(null, true);

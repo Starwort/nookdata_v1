@@ -27,6 +27,7 @@ class CritterPanel(Component):
             Card(
                 IdiomaticText(
                     "help",  # TODO: make responsive
+                    id=f"icon_{type}_{index:0>2}",
                     classes={"material-icons"},
                 ),
                 Image(
