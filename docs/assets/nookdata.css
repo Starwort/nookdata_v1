@@ -197,33 +197,40 @@ body[theme] .mdc-card.info-panel {
   grid: "image dry rain" "image label_found found" "image label_price price" "image label_shadow shadow";
 }
 body[theme] .mdc-card.info-panel img {
-  width: 50%;
   grid-area: image;
 }
 body[theme] .mdc-card.info-panel .dry-indicator {
   grid-area: dry;
   color: #e69038;
+  font-size: xx-large;
 }
 body[theme] .mdc-card.info-panel .rain-indicator {
   grid-area: rain;
+  font-size: xx-large;
 }
 body[theme] .mdc-card.info-panel .location {
   grid-area: found;
+  margin: 0.25em;
 }
 body[theme] .mdc-card.info-panel .label-location {
   grid-area: label_found;
+  margin: 0.25em;
 }
 body[theme] .mdc-card.info-panel .sell-value {
   grid-area: price;
+  margin: 0.25em;
 }
 body[theme] .mdc-card.info-panel .label-sell-value {
   grid-area: label_price;
+  margin: 0.25em;
 }
 body[theme] .mdc-card.info-panel .shadow-size {
   grid-area: shadow;
+  margin: 0.25em;
 }
 body[theme] .mdc-card.info-panel .label-shadow-size {
   grid-area: label_shadow;
+  margin: 0.25em;
 }
 
 .cursor-alias {

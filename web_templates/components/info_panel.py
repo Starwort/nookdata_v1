@@ -33,7 +33,7 @@ class InfoPanel(dom.Component):
                 ),
                 (
                     dom.IdiomaticText(
-                        "wb_cloud",
+                        "cloud",
                         classes={"material-icons", "rain-indicator"},
                         title="Available when raining",
                     )

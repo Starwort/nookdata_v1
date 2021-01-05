@@ -238,33 +238,40 @@ body[theme] .mdc-card.info-panel {
         "image label_shadow shadow";
 
     & img {
-        width: 50%;
         grid-area: image;
     }
     & .dry-indicator {
         grid-area: dry;
         color: $summer;
+        font-size: xx-large;
     }
     & .rain-indicator {
         grid-area: rain;
+        font-size: xx-large;
     }
     & .location {
         grid-area: found;
+        margin: 0.25em;
     }
     & .label-location {
         grid-area: label_found;
+        margin: 0.25em;
     }
     & .sell-value {
         grid-area: price;
+        margin: 0.25em;
     }
     & .label-sell-value {
         grid-area: label_price;
+        margin: 0.25em;
     }
     & .shadow-size {
         grid-area: shadow;
+        margin: 0.25em;
     }
     & .label-shadow-size {
         grid-area: label_shadow;
+        margin: 0.25em;
     }
 }
 
