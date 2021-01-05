@@ -177,16 +177,22 @@ main {
         color: $error-light;
         border: 1px solid $error-light;
     }
+    body[theme="dark"] &.danger {
+        color: $error-dark;
+    }
+    body[theme="light"] &.danger {
+        color: $error-light;
+    }
 
     &.obtained {
         body[theme="dark"] & {
+            background-color: transparentize($primary-dark, 0.5);
             &:not(.unavailable):not(.modelled) {
-                background-color: transparentize($primary-dark, 0.5);
-            }
-            &:not(.danger):not(.modelled) {
+                &:not(.danger) {
+                    color: $primary-dark;
+                }
                 border: 1px solid $primary-dark;
             }
-            color: $primary-dark;
             & + div .mdc-dialog__surface {
                 & .mdc-dialog__title {
                     color: $primary-dark;
@@ -195,13 +201,13 @@ main {
             }
         }
         body[theme="light"] & {
+            background-color: transparentize($primary-light, 0.5);
             &:not(.unavailable):not(.modelled) {
-                background-color: transparentize($primary-light, 0.5);
-            }
-            &:not(.danger):not(.modelled) {
+                &:not(.danger) {
+                    color: $primary-light;
+                }
                 border: 1px solid $primary-light;
             }
-            color: $primary-light;
             & + div .mdc-dialog__surface {
                 & .mdc-dialog__title {
                     color: $primary-light;
