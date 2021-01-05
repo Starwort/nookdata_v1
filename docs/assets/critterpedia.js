@@ -165,14 +165,16 @@ function load_or_unload_dialogue(dialogue, push = true) {
         document.title = "Critterpedia | Nookdata";
     }
 }
+var obtained_bugs = 0;
+var modelled_bugs = 0;
+var obtained_fish = 0;
+var modelled_fish = 0;
 var critterpedia_data = get_or_insert(nookdata_data, 'critterpedia', {});
 function ready() {
     document.body.setAttribute('hemisphere', get_or_insert(nookdata_data, 'hemisphere', 'north'));
     if (nookdata_data.hemisphere == 'south') {
         month_offset = 6;
     }
-    let obtained_bugs = 0;
-    let modelled_bugs = 0;
     for (let bug_id = 0; bug_id < 80; bug_id++) {
         let index = bug_id.toString().padStart(2, "0");
         let bug_card = document.getElementById(`card_bugs_${index}`);
@@ -214,8 +216,6 @@ function ready() {
     }
     document.getElementById('obtained_bugs').innerText = obtained_bugs;
     document.getElementById('modelled_bugs').innerText = modelled_bugs;
-    let obtained_fish = 0;
-    let modelled_fish = 0;
     for (let fish_id = 0; fish_id < 80; fish_id++) {
         let index = fish_id.toString().padStart(2, "0");
         let fish_card = document.getElementById(`card_fish_${index}`);
@@ -282,6 +282,47 @@ function ready() {
     }
 }
 window.begin_scripts = ready;
+
+function mark_obtained(set_id, obtained) {
+    let card = document.getElementById('card_' + set_id);
+    card.obtained = obtained;
+    if (obtained) {
+        card.classList.add('obtained');
+        if (set_id.startsWith('bug')) {
+            obtained_bugs++;
+        } else { obtained_fish++; }
+        document.getElementById('obtained_bugs').innerText = obtained_bugs;
+        document.getElementById('obtained_fish').innerText = obtained_fish;
+    } else {
+        card.classList.remove('obtained');
+        if (set_id.startsWith('bug')) {
+            obtained_bugs--;
+        } else { obtained_fish--; }
+        document.getElementById('obtained_bugs').innerText = obtained_bugs;
+        document.getElementById('obtained_fish').innerText = obtained_fish;
+    }
+    critterpedia_data[set_id.replace('bugs', 'bug') + '_obtained'] = obtained;
+}
+function mark_modelled(set_id, modelled) {
+    let card = document.getElementById('card_' + set_id);
+    card.modelled = modelled;
+    if (modelled) {
+        card.classList.add('modelled');
+        if (set_id.startsWith('bug')) {
+            modelled_bugs++;
+        } else { modelled_fish++; }
+        document.getElementById('modelled_bugs').innerText = modelled_bugs;
+        document.getElementById('modelled_fish').innerText = modelled_fish;
+    } else {
+        card.classList.remove('modelled');
+        if (set_id.startsWith('bug')) {
+            modelled_bugs--;
+        } else { modelled_fish--; }
+        document.getElementById('modelled_bugs').innerText = modelled_bugs;
+        document.getElementById('modelled_fish').innerText = modelled_fish;
+    }
+    critterpedia_data[set_id.replace('bugs', 'bug') + '_modelled'] = modelled;
+}
 
 function load_window_if_required() {
     var url = new URL(window.location.href);
