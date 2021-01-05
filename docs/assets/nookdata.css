@@ -147,9 +147,13 @@ body[theme=light] .critter-panel.unavailable {
   border: 1px solid #b00020;
 }
 body[theme=dark] .critter-panel.obtained {
-  background-color: rgba(187, 134, 252, 0.5);
-  border: 1px solid #bb86fc;
   color: #bb86fc;
+}
+body[theme=dark] .critter-panel.obtained:not(.unavailable) {
+  background-color: rgba(187, 134, 252, 0.5);
+}
+body[theme=dark] .critter-panel.obtained:not(.danger) {
+  border: 1px solid #bb86fc;
 }
 body[theme=dark] .critter-panel.obtained + div .mdc-dialog__surface {
   border: 1px solid #bb86fc;

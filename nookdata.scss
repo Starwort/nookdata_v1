@@ -180,8 +180,12 @@ main {
 
     &.obtained {
         body[theme="dark"] & {
-            background-color: transparentize($primary-dark, 0.5);
-            border: 1px solid $primary-dark;
+            &:not(.unavailable) {
+                background-color: transparentize($primary-dark, 0.5);
+            }
+            &:not(.danger) {
+                border: 1px solid $primary-dark;
+            }
             color: $primary-dark;
             & + div .mdc-dialog__surface {
                 & .mdc-dialog__title {
