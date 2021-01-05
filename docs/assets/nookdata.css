@@ -115,6 +115,14 @@ body[theme=light] .critter-table-title .modelled-count {
   content: " ";
 }
 
+.critter-panel {
+  text-align: center;
+  width: 66px;
+}
+.critter-panel i.material-icons {
+  display: block;
+  padding-top: 16px;
+}
 .critter-panel.no-match {
   opacity: 0.3;
 }

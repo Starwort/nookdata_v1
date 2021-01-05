@@ -141,6 +141,14 @@ main {
 }
 
 .critter-panel {
+    text-align: center;
+    width: 66px;
+
+    & i.material-icons {
+        display: block;
+        padding-top: 16px;
+    }
+
     &.no-match {
         opacity: 0.3;
     }

@@ -1,6 +1,6 @@
 import typing
 
-from dom_generator import Component, ElementGroup, IdiomaticText, Image
+from dom_generator import Component, ElementGroup, IdiomaticText, Image, Script
 from dom_generator.material_design import Card, Dialogue
 
 from . import CritterInfo
@@ -27,15 +27,13 @@ class CritterPanel(Component):
             Card(
                 IdiomaticText(
                     "help",  # TODO: make responsive
-                    class_="material-icons",
-                    style="display: block; padding-top: 16px",
+                    classes={"material-icons"},
                 ),
                 Image(
                     src=f"https://starwort.github.io/nookdata/assets/{type}/{index:0>2}.png",
                     # src=f"nookdata/assets/{type}/{index:0>2}.png",
                     style="width:64px; height:64px",
                 ),
-                style="text-align: center; width: 66px",
                 onclick=f"open_critter_info('dialogue_{type}_{index:0>2}')",
                 title=(
                     f"{name.capitalize()} ({type.capitalize().rstrip('s')} "
@@ -44,7 +42,7 @@ class CritterPanel(Component):
                 pad=False,
                 id=f"card_{type}_{index:0>2}",
                 outlined=False,
-                class_="critter-panel",
+                classes={"critter-panel"},
                 **{
                     "data-times": repr(hours).lower(),
                     "data-name": name.lower(),
@@ -63,6 +61,6 @@ class CritterPanel(Component):
                     normal_name, index, quote, dry, rain, price, location, hours, type
                 ),
                 id=f"dialogue_{type}_{index:0>2}",
-                class_="critter-info",
+                classes={"critter-info"},
             ),
         )

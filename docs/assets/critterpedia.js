@@ -138,6 +138,7 @@ function load_or_unload_dialogue(dialogue, push = true) {
         document.title = "Critterpedia | Nookdata";
     }
 }
+var critterpedia_data = get_or_insert(nookdata_data, 'critterpedia', {});
 function ready() {
     window.setInterval(update, 5000);
     update();
@@ -149,7 +150,30 @@ function ready() {
             load_or_unload_dialogue(null, true);
         })
     }
-    var data = get_data();
+    for (let bug_id = 0; bug_id < 80; bug_id++) {
+        let index = bug_id.toString().padStart(2, "0");
+        let bug_card = document.getElementById(`card_bugs_${index}`);
+        let obtained = get_or_insert(critterpedia_data, `bug_${index}_obtained`, false);
+        let modelled = get_or_insert(critterpedia_data, `bug_${index}_modelled`, false);
+        if (obtained) {
+            bug_card.classList.add('obtained');
+        }
+        if (modelled) {
+            bug_card.classList.add('modelled');
+        }
+    }
+    for (let fish_id = 0; fish_id < 80; fish_id++) {
+        let index = fish_id.toString().padStart(2, "0");
+        let fish_card = document.getElementById(`card_fish_${index}`);
+        let obtained = get_or_insert(critterpedia_data, `fish_${index}_obtained`, false);
+        let modelled = get_or_insert(critterpedia_data, `fish_${index}_modelled`, false);
+        if (obtained) {
+            fish_card.classList.add('obtained');
+        }
+        if (modelled) {
+            fish_card.classList.add('modelled');
+        }
+    }
 }
 window.begin_scripts = ready;
 

@@ -1,12 +1,18 @@
 function get_or_insert(data, key, default_val) {
-    return JSON.parse(
+    return (
         data[key] !== undefined
-        ? data[key]
-        : data[key] = JSON.stringify(
-            default_val
-        )
+            ? data[key]
+            : data[key] = default_val
     );
 }
-function get_data() {
-    return get_or_insert(window.localStorage, 'nookdata', {});
+
+if (window.localStorage.nookdata === undefined) {
+    window.localStorage.nookdata = "{}";
+}
+
+var nookdata_data = JSON.parse(window.localStorage.nookdata);
+
+window.onbeforeunload = function (event) {
+    // Save data before page unload
+    window.localStorage.nookdata = JSON.stringify(nookdata_data);
 }
