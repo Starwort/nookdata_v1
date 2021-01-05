@@ -126,7 +126,7 @@ body[theme=light] .critter-table-title .modelled-count {
 .critter-panel.no-match {
   opacity: 0.3;
 }
-.critter-panel.unavailable {
+body[theme] .critter-panel.unavailable {
   background-color: var(--mdc-theme-error);
   color: var(--mdc-theme-on-error);
 }

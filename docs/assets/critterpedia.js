@@ -36,6 +36,26 @@ function update() {
     if (new_month != month) {
         for (let card_id of card_sets) {
             // f"card_{i}_{identifier}"
+            let card = document.getElementById(`card_${card_id}`);
+            let icon = document.getElementById(`icon_${card_id}`);
+            if (card.months[new_month] && !card.months[(new_month + 1) % 12]) {
+                icon.innerText = 'warning';
+                card.title = card.name + '\nUnavailable next month';
+                card.classList.add('danger');
+            } else {
+                icon.innerText = 'help';
+                card.title = card.name;
+                card.classList.remove('danger');
+                card.classList.remove('unavailable');
+                if (!card.months[new_month]) {
+                    card.title += '\nUnavailable';
+                    card.classList.add('unavailable');
+                }
+            }
+            if (card.modelled) {
+                card.title += '\nModel obtained!';
+            }
+            card.title += '\nClick for more details';
             document.getElementById(`card_${month}_${card_id}`)
                 .classList.remove("card-current");
             document.getElementById(`card_${new_month}_${card_id}`)
@@ -146,21 +166,26 @@ function load_or_unload_dialogue(dialogue, push = true) {
 }
 var critterpedia_data = get_or_insert(nookdata_data, 'critterpedia', {});
 function ready() {
-    window.setInterval(update, 5000);
-    update();
-    /** @type {MDCDialog} */
-    var dialogue;
-    var dialogue_id;
-    for ([dialogue_id, dialogue] of Object.entries(window.dialogues)) {
-        dialogue.listen("MDCDialog:closing", () => {
-            load_or_unload_dialogue(null, true);
-        })
-    }
     for (let bug_id = 0; bug_id < 80; bug_id++) {
         let index = bug_id.toString().padStart(2, "0");
         let bug_card = document.getElementById(`card_bugs_${index}`);
+        // data-times
+        bug_card.times = JSON.parse(bug_card.getAttribute('data-times'));
+        bug_card.months = bug_card.times.map((val) => { return val.some((val) => { return val; }); });
+        // data-name
+        bug_card.name = bug_card.getAttribute('data-name');
+        // data-dry
+        bug_card.dry = JSON.parse(bug_card.getAttribute('data-dry'));
+        // data-rain
+        bug_card.rain = JSON.parse(bug_card.getAttribute('data-rain'));
+        // data-price
+        bug_card.price = JSON.parse(bug_card.getAttribute('data-price'));
+        // data-location
+        bug_card.location = bug_card.getAttribute('data-location');
         let obtained = get_or_insert(critterpedia_data, `bug_${index}_obtained`, false);
         let modelled = get_or_insert(critterpedia_data, `bug_${index}_modelled`, false);
+        bug_card.obtained = obtained;
+        bug_card.modelled = modelled;
         if (obtained) {
             bug_card.classList.add('obtained');
         }
@@ -171,14 +196,41 @@ function ready() {
     for (let fish_id = 0; fish_id < 80; fish_id++) {
         let index = fish_id.toString().padStart(2, "0");
         let fish_card = document.getElementById(`card_fish_${index}`);
+        // data-times
+        fish_card.times = JSON.parse(fish_card.getAttribute('data-times'));
+        fish_card.months = fish_card.times.map((val) => { val.some((val) => { return val; }) });
+        // data-name
+        fish_card.name = fish_card.getAttribute('data-name');
+        // data-dry
+        fish_card.dry = JSON.parse(fish_card.getAttribute('data-dry'));
+        // data-rain
+        fish_card.rain = JSON.parse(fish_card.getAttribute('data-rain'));
+        // data-price
+        fish_card.price = JSON.parse(fish_card.getAttribute('data-price'));
+        // data-size
+        fish_card.size = JSON.parse(fish_card.getAttribute('data-size'));
+        // data-location
+        fish_card.location = fish_card.getAttribute('data-location');
         let obtained = get_or_insert(critterpedia_data, `fish_${index}_obtained`, false);
         let modelled = get_or_insert(critterpedia_data, `fish_${index}_modelled`, false);
+        fish_card.obtained = obtained;
+        fish_card.modelled = modelled;
         if (obtained) {
             fish_card.classList.add('obtained');
         }
         if (modelled) {
             fish_card.classList.add('modelled');
         }
+    }
+    window.setInterval(update, 5000);
+    update();
+    /** @type {MDCDialog} */
+    var dialogue;
+    var dialogue_id;
+    for ([dialogue_id, dialogue] of Object.entries(window.dialogues)) {
+        dialogue.listen("MDCDialog:closing", () => {
+            load_or_unload_dialogue(null, true);
+        })
     }
 }
 window.begin_scripts = ready;
@@ -239,29 +291,29 @@ function search_critters() {
         card = document.getElementById("card_" + card_id)
         card.classList.remove("no-match");
         if (search_parameters.name) {
-            if (!card.getAttribute("data-name")
+            if (!card.name
                 .includes(search_parameters.name.toLowerCase())) {
                 card.classList.add("no-match");
             }
         }
         if (search_parameters.location) {
-            if (!card.getAttribute("data-location")
+            if (!card.location
                 .includes(search_parameters.location.toLowerCase())) {
                 card.classList.add("no-match");
             }
         }
         if (search_parameters.size && card_id.startsWith("fish")) {
-            if (card.getAttribute("data-size") != search_parameters.size) {
+            if (card.size != search_parameters.size) {
                 card.classList.add("no-match");
             }
         }
         if (search_parameters.available_now_only) {
-            if (!eval(card.getAttribute("data-times"))[month][hour]) {
+            if (!card.times[month][hour]) {
                 card.classList.add("no-match");
             }
         }
         if (search_parameters.unavailable_soon_only) {
-            if (eval(card.getAttribute("data-times"))[(month + 1) % 12].some(available => available)) {
+            if (card.months[(month + 1) % 12] || !card.months[month]) {
                 card.classList.add("no-match");
             }
         }

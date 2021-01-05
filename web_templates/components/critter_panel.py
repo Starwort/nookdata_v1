@@ -19,7 +19,7 @@ class CritterPanel(Component):
         location: str,
         hours: typing.List[typing.List[bool]],
         type: typing.Literal["bugs", "fish"],
-        size_or_none: typing.Optional[int] = None,
+        size_or_none: typing.Optional[str] = None,
         # user_owns: typing.Optional[bool] = False,
         # user_owns_model: typing.Optional[bool] = False,
     ) -> None:
@@ -50,7 +50,7 @@ class CritterPanel(Component):
                     "data-dry": repr(dry).lower(),
                     "data-rain": repr(rain).lower(),
                     "data-price": repr(price),
-                    "data-size": repr(size_or_none),
+                    "data-size": repr(size_or_none).replace("'", '"'),
                     "data-location": location.lower(),
                     # "data-caught": repr(user_owns).lower(),
                     # "data-model": repr(user_owns_model).lower(),

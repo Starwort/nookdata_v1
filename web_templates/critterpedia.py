@@ -103,6 +103,7 @@ async def _generate():
                                     ]
                                 ],
                                 "fish",
+                                fish["shadow"],
                             )
                             for fish in data_fish[i::5]
                         ]
