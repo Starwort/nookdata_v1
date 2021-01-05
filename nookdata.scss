@@ -6,6 +6,8 @@ $modelled-dark: gold;
 $modelled-light: #fbc02d;
 $primary-dark: #bb86fc;
 $primary-light: #6200ee;
+$error-dark: #cf6679;
+$error-light: #b00020;
 
 @use "sass:color";
 
@@ -144,6 +146,10 @@ main {
     text-align: center;
     width: 66px;
 
+    body[theme="light"] & {
+        border: 1px solid transparent;
+    }
+
     & i.material-icons {
         display: block;
         padding-top: 16px;
@@ -153,9 +159,15 @@ main {
         opacity: 0.3;
     }
 
-    body[theme] &.unavailable {
-        background-color: var(--mdc-theme-error);
-        color: var(--mdc-theme-on-error);
+    body[theme="dark"] &.unavailable {
+        background-color: transparentize($error-dark, 0.5);
+        color: $error-dark;
+        border: 1px solid $error-dark;
+    }
+    body[theme="light"] &.unavailable {
+        background-color: transparentize($error-light, 0.5);
+        color: $error-light;
+        border: 1px solid $error-light;
     }
 
     &.obtained {

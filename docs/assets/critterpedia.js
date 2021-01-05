@@ -40,11 +40,11 @@ function update() {
             let icon = document.getElementById(`icon_${card_id}`);
             if (card.months[new_month] && !card.months[(new_month + 1) % 12]) {
                 icon.innerText = 'warning';
-                card.title = card.name + '\nUnavailable next month';
+                card.title = card.name.replace(/(?<=^|\s)\w/g, (match) => (match.toUpperCase())); + '\nUnavailable next month';
                 card.classList.add('danger');
             } else {
                 icon.innerText = 'help';
-                card.title = card.name;
+                card.title = card.name.replace(/(?<=^|\s)\w/g, (match) => (match.toUpperCase()));;
                 card.classList.remove('danger');
                 card.classList.remove('unavailable');
                 if (!card.months[new_month]) {
@@ -171,7 +171,7 @@ function ready() {
         let bug_card = document.getElementById(`card_bugs_${index}`);
         // data-times
         bug_card.times = JSON.parse(bug_card.getAttribute('data-times'));
-        bug_card.months = bug_card.times.map((val) => { return val.some((val) => { return val; }); });
+        bug_card.months = bug_card.times.map((val) => (val.some((val) => (val))));
         // data-name
         bug_card.name = bug_card.getAttribute('data-name');
         // data-dry
@@ -192,13 +192,23 @@ function ready() {
         if (modelled) {
             bug_card.classList.add('modelled');
         }
+        let icon = bug_card.firstChild.firstChild.firstChild.firstChild;
+        if (bug_card.months[month] && !bug_card.months[(month + 1) % 12]) {
+            icon.innerText = 'warning';
+            bug_card.classList.add('danger');
+        } else {
+            icon.innerText = 'help';
+            if (!bug_card.months[month]) {
+                bug_card.classList.add('unavailable');
+            }
+        }
     }
     for (let fish_id = 0; fish_id < 80; fish_id++) {
         let index = fish_id.toString().padStart(2, "0");
         let fish_card = document.getElementById(`card_fish_${index}`);
         // data-times
         fish_card.times = JSON.parse(fish_card.getAttribute('data-times'));
-        fish_card.months = fish_card.times.map((val) => { val.some((val) => { return val; }) });
+        fish_card.months = fish_card.times.map((val) => (val.some((val) => (val))));
         // data-name
         fish_card.name = fish_card.getAttribute('data-name');
         // data-dry
@@ -220,6 +230,16 @@ function ready() {
         }
         if (modelled) {
             fish_card.classList.add('modelled');
+        }
+        let icon = fish_card.firstChild.firstChild.firstChild.firstChild;
+        if (fish_card.months[month] && !fish_card.months[(month + 1) % 12]) {
+            icon.innerText = 'warning';
+            fish_card.classList.add('danger');
+        } else {
+            icon.innerText = 'help';
+            if (!fish_card.months[month]) {
+                fish_card.classList.add('unavailable');
+            }
         }
     }
     window.setInterval(update, 5000);

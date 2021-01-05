@@ -119,6 +119,9 @@ body[theme=light] .critter-table-title .modelled-count {
   text-align: center;
   width: 66px;
 }
+body[theme=light] .critter-panel {
+  border: 1px solid transparent;
+}
 .critter-panel i.material-icons {
   display: block;
   padding-top: 16px;
@@ -126,9 +129,15 @@ body[theme=light] .critter-table-title .modelled-count {
 .critter-panel.no-match {
   opacity: 0.3;
 }
-body[theme] .critter-panel.unavailable {
-  background-color: var(--mdc-theme-error);
-  color: var(--mdc-theme-on-error);
+body[theme=dark] .critter-panel.unavailable {
+  background-color: rgba(207, 102, 121, 0.5);
+  color: #cf6679;
+  border: 1px solid #cf6679;
+}
+body[theme=light] .critter-panel.unavailable {
+  background-color: rgba(176, 0, 32, 0.5);
+  color: #b00020;
+  border: 1px solid #b00020;
 }
 body[theme=dark] .critter-panel.obtained {
   background-color: rgba(187, 134, 252, 0.5);
