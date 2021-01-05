@@ -237,6 +237,7 @@ body[theme] .mdc-card.info-panel {
         "image label_price price"
         "image label_shadow shadow"
         "obtained modelled modelled";
+    grid-template-columns: 50% 25% 25%;
 
     & img {
         grid-area: image;
@@ -279,9 +280,11 @@ body[theme] .mdc-card.info-panel {
     }
     & .checkbox-obtained {
         grid-area: obtained;
+        margin: auto;
     }
     & .checkbox-modelled {
         grid-area: modelled;
+        margin: auto;
     }
 }
 

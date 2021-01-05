@@ -195,6 +195,7 @@ body[theme] .mdc-card.info-panel {
   display: grid;
   padding: 16px;
   grid: "image dry rain" "image label_found found" "image label_price price" "image label_shadow shadow" "obtained modelled modelled";
+  grid-template-columns: 50% 25% 25%;
 }
 body[theme] .mdc-card.info-panel img {
   grid-area: image;
@@ -237,9 +238,11 @@ body[theme] .mdc-card.info-panel .label-shadow-size {
 }
 body[theme] .mdc-card.info-panel .checkbox-obtained {
   grid-area: obtained;
+  margin: auto;
 }
 body[theme] .mdc-card.info-panel .checkbox-modelled {
   grid-area: modelled;
+  margin: auto;
 }
 
 .cursor-alias {
