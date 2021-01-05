@@ -124,7 +124,7 @@ main {
     & .obtained-count {
         color: var(--mdc-theme-primary);
         &::after {
-            content: " ";
+            content: " / 80 ";
         }
     }
     & .modelled-count {
@@ -134,8 +134,11 @@ main {
         body[theme="light"] & {
             color: $modelled-light;
         }
+        &::before {
+            content: "(";
+        }
         &::after {
-            content: " ";
+            content: " / 80)";
         }
     }
     font-size: 1.5em;

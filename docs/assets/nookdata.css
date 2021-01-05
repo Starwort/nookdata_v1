@@ -103,7 +103,7 @@ main {
   color: var(--mdc-theme-primary);
 }
 .critter-table-title .obtained-count::after {
-  content: " ";
+  content: " / 80 ";
 }
 body[theme=dark] .critter-table-title .modelled-count {
   color: gold;
@@ -111,8 +111,11 @@ body[theme=dark] .critter-table-title .modelled-count {
 body[theme=light] .critter-table-title .modelled-count {
   color: #fbc02d;
 }
+.critter-table-title .modelled-count::before {
+  content: "(";
+}
 .critter-table-title .modelled-count::after {
-  content: " ";
+  content: " / 80)";
 }
 
 .critter-panel {

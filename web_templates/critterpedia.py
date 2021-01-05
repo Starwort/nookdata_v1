@@ -21,8 +21,8 @@ async def _generate():
             content=dom.ElementGroup(
                 dom.ContentDivision(
                     dom.Span("Bugs", class_="critter-type"),
-                    dom.Span("0 / 80", class_="obtained-count", id="obtained_bugs"),
-                    dom.Span("(0 / 80)", class_="modelled-count", id="modelled_bugs"),
+                    dom.Span("0", class_="obtained-count", id="obtained_bugs"),
+                    dom.Span("0", class_="modelled-count", id="modelled_bugs"),
                     class_="critter-table-title",
                 ),
                 dom.Table(
@@ -69,8 +69,8 @@ async def _generate():
             content=dom.ElementGroup(
                 dom.ContentDivision(
                     dom.Span("Fish", class_="critter-type"),
-                    dom.Span("0 / 80", class_="obtained-count", id="obtained_fish"),
-                    dom.Span("(0 / 80)", class_="modelled-count", id="modelled_fish"),
+                    dom.Span("0", class_="obtained-count", id="obtained_fish"),
+                    dom.Span("0", class_="modelled-count", id="modelled_fish"),
                     class_="critter-table-title",
                 ),
                 dom.Table(
