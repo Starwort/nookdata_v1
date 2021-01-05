@@ -171,6 +171,8 @@ function ready() {
     if (nookdata_data.hemisphere == 'south') {
         month_offset = 6;
     }
+    let obtained_bugs = 0;
+    let modelled_bugs = 0;
     for (let bug_id = 0; bug_id < 80; bug_id++) {
         let index = bug_id.toString().padStart(2, "0");
         let bug_card = document.getElementById(`card_bugs_${index}`);
@@ -192,9 +194,11 @@ function ready() {
         bug_card.obtained = obtained;
         bug_card.modelled = modelled;
         if (obtained) {
+            obtained_bugs++;
             bug_card.classList.add('obtained');
         }
         if (modelled) {
+            modelled_bugs++;
             bug_card.classList.add('modelled');
         }
         let icon = bug_card.firstChild.firstChild.firstChild.firstChild;
@@ -208,6 +212,10 @@ function ready() {
             }
         }
     }
+    document.getElementById('obtained_bugs').innerText = obtained_bugs;
+    document.getElementById('modelled_bugs').innerText = modelled_bugs;
+    let obtained_fish = 0;
+    let modelled_fish = 0;
     for (let fish_id = 0; fish_id < 80; fish_id++) {
         let index = fish_id.toString().padStart(2, "0");
         let fish_card = document.getElementById(`card_fish_${index}`);
@@ -231,9 +239,11 @@ function ready() {
         fish_card.obtained = obtained;
         fish_card.modelled = modelled;
         if (obtained) {
+            obtained_fish++;
             fish_card.classList.add('obtained');
         }
         if (modelled) {
+            modelled_fish++;
             fish_card.classList.add('modelled');
         }
         let icon = fish_card.firstChild.firstChild.firstChild.firstChild;
@@ -247,6 +257,8 @@ function ready() {
             }
         }
     }
+    document.getElementById('obtained_bugs').innerText = obtained_bugs;
+    document.getElementById('modelled_bugs').innerText = modelled_bugs;
     for (let card_id of card_sets) {
         for (let month = 0; month < 12; month++) {
             let month_card = document.getElementById(`card_${month}_${card_id}`);
