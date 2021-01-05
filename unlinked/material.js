@@ -401,6 +401,95 @@ function __classPrivateFieldSet(receiver, privateMap, value) {
   privateMap.set(receiver, value);
   return value;
 }
+;// CONCATENATED MODULE: ./node_modules/@material/animation/util.js
+/**
+ * @license
+ * Copyright 2016 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+var cssPropertyNameMap = {
+  animation: {
+    prefixed: '-webkit-animation',
+    standard: 'animation'
+  },
+  transform: {
+    prefixed: '-webkit-transform',
+    standard: 'transform'
+  },
+  transition: {
+    prefixed: '-webkit-transition',
+    standard: 'transition'
+  }
+};
+var jsEventTypeMap = {
+  animationend: {
+    cssProperty: 'animation',
+    prefixed: 'webkitAnimationEnd',
+    standard: 'animationend'
+  },
+  animationiteration: {
+    cssProperty: 'animation',
+    prefixed: 'webkitAnimationIteration',
+    standard: 'animationiteration'
+  },
+  animationstart: {
+    cssProperty: 'animation',
+    prefixed: 'webkitAnimationStart',
+    standard: 'animationstart'
+  },
+  transitionend: {
+    cssProperty: 'transition',
+    prefixed: 'webkitTransitionEnd',
+    standard: 'transitionend'
+  }
+};
+
+function isWindow(windowObj) {
+  return Boolean(windowObj.document) && typeof windowObj.document.createElement === 'function';
+}
+
+function getCorrectPropertyName(windowObj, cssProperty) {
+  if (isWindow(windowObj) && cssProperty in cssPropertyNameMap) {
+    var el = windowObj.document.createElement('div');
+    var _a = cssPropertyNameMap[cssProperty],
+        standard = _a.standard,
+        prefixed = _a.prefixed;
+    var isStandard = (standard in el.style);
+    return isStandard ? standard : prefixed;
+  }
+
+  return cssProperty;
+}
+function getCorrectEventName(windowObj, eventType) {
+  if (isWindow(windowObj) && eventType in jsEventTypeMap) {
+    var el = windowObj.document.createElement('div');
+    var _a = jsEventTypeMap[eventType],
+        standard = _a.standard,
+        prefixed = _a.prefixed,
+        cssProperty = _a.cssProperty;
+    var isStandard = (cssProperty in el.style);
+    return isStandard ? standard : prefixed;
+  }
+
+  return eventType;
+}
 ;// CONCATENATED MODULE: ./node_modules/@material/base/foundation.js
 /**
  * @license
@@ -607,118 +696,6 @@ function () {
  // tslint:disable-next-line:no-default-export Needed for backward compatibility with MDC Web v0.44.0 and earlier.
 
 /* harmony default export */ const component = ((/* unused pure expression or super */ null && (MDCComponent)));
-;// CONCATENATED MODULE: ./node_modules/@material/dom/announce.js
-/**
- * @license
- * Copyright 2020 Google Inc.
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-
-/**
- * Priorities for the announce function
- */
-var AnnouncerPriority;
-
-(function (AnnouncerPriority) {
-  AnnouncerPriority["POLITE"] = "polite";
-  AnnouncerPriority["ASSERTIVE"] = "assertive";
-})(AnnouncerPriority || (AnnouncerPriority = {}));
-/**
- * Data attribute added to live region element.
- */
-
-
-var DATA_MDC_DOM_ANNOUNCE = 'data-mdc-dom-announce';
-/**
- * Announces the given message with optional priority, defaulting to "polite"
- */
-
-function announce(message, priority) {
-  Announcer.getInstance().say(message, priority);
-}
-
-var Announcer =
-/** @class */
-function () {
-  // Constructor made private to ensure only the singleton is used
-  function Announcer() {
-    this.liveRegions = new Map();
-  }
-
-  Announcer.getInstance = function () {
-    if (!Announcer.instance) {
-      Announcer.instance = new Announcer();
-    }
-
-    return Announcer.instance;
-  };
-
-  Announcer.prototype.say = function (message, priority) {
-    if (priority === void 0) {
-      priority = AnnouncerPriority.POLITE;
-    }
-
-    var liveRegion = this.getLiveRegion(priority); // Reset the region to pick up the message, even if the message is the
-    // exact same as before.
-
-    liveRegion.textContent = ''; // Timeout is necessary for screen readers like NVDA and VoiceOver.
-
-    setTimeout(function () {
-      liveRegion.textContent = message;
-      document.addEventListener('click', clearLiveRegion);
-    }, 1);
-
-    function clearLiveRegion() {
-      liveRegion.textContent = '';
-      document.removeEventListener('click', clearLiveRegion);
-    }
-  };
-
-  Announcer.prototype.getLiveRegion = function (priority) {
-    var existingLiveRegion = this.liveRegions.get(priority);
-
-    if (existingLiveRegion && document.body.contains(existingLiveRegion)) {
-      return existingLiveRegion;
-    }
-
-    var liveRegion = this.createLiveRegion(priority);
-    this.liveRegions.set(priority, liveRegion);
-    return liveRegion;
-  };
-
-  Announcer.prototype.createLiveRegion = function (priority) {
-    var el = document.createElement('div');
-    el.style.position = 'absolute';
-    el.style.top = '-9999px';
-    el.style.left = '-9999px';
-    el.style.height = '1px';
-    el.style.overflow = 'hidden';
-    el.setAttribute('aria-atomic', 'true');
-    el.setAttribute('aria-live', priority);
-    el.setAttribute(DATA_MDC_DOM_ANNOUNCE, 'true');
-    document.body.appendChild(el);
-    return el;
-  };
-
-  return Announcer;
-}();
 ;// CONCATENATED MODULE: ./node_modules/@material/dom/events.js
 /**
  * @license
@@ -1787,6 +1764,680 @@ function (_super) {
 }(MDCComponent);
 
 
+;// CONCATENATED MODULE: ./node_modules/@material/checkbox/constants.js
+/**
+ * @license
+ * Copyright 2016 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+var constants_cssClasses = {
+  ANIM_CHECKED_INDETERMINATE: 'mdc-checkbox--anim-checked-indeterminate',
+  ANIM_CHECKED_UNCHECKED: 'mdc-checkbox--anim-checked-unchecked',
+  ANIM_INDETERMINATE_CHECKED: 'mdc-checkbox--anim-indeterminate-checked',
+  ANIM_INDETERMINATE_UNCHECKED: 'mdc-checkbox--anim-indeterminate-unchecked',
+  ANIM_UNCHECKED_CHECKED: 'mdc-checkbox--anim-unchecked-checked',
+  ANIM_UNCHECKED_INDETERMINATE: 'mdc-checkbox--anim-unchecked-indeterminate',
+  BACKGROUND: 'mdc-checkbox__background',
+  CHECKED: 'mdc-checkbox--checked',
+  CHECKMARK: 'mdc-checkbox__checkmark',
+  CHECKMARK_PATH: 'mdc-checkbox__checkmark-path',
+  DISABLED: 'mdc-checkbox--disabled',
+  INDETERMINATE: 'mdc-checkbox--indeterminate',
+  MIXEDMARK: 'mdc-checkbox__mixedmark',
+  NATIVE_CONTROL: 'mdc-checkbox__native-control',
+  ROOT: 'mdc-checkbox',
+  SELECTED: 'mdc-checkbox--selected',
+  UPGRADED: 'mdc-checkbox--upgraded'
+};
+var constants_strings = {
+  ARIA_CHECKED_ATTR: 'aria-checked',
+  ARIA_CHECKED_INDETERMINATE_VALUE: 'mixed',
+  DATA_INDETERMINATE_ATTR: 'data-indeterminate',
+  NATIVE_CONTROL_SELECTOR: '.mdc-checkbox__native-control',
+  TRANSITION_STATE_CHECKED: 'checked',
+  TRANSITION_STATE_INDETERMINATE: 'indeterminate',
+  TRANSITION_STATE_INIT: 'init',
+  TRANSITION_STATE_UNCHECKED: 'unchecked'
+};
+var constants_numbers = {
+  ANIM_END_LATCH_MS: 250
+};
+;// CONCATENATED MODULE: ./node_modules/@material/checkbox/foundation.js
+/**
+ * @license
+ * Copyright 2016 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+
+var MDCCheckboxFoundation =
+/** @class */
+function (_super) {
+  __extends(MDCCheckboxFoundation, _super);
+
+  function MDCCheckboxFoundation(adapter) {
+    var _this = _super.call(this, __assign(__assign({}, MDCCheckboxFoundation.defaultAdapter), adapter)) || this;
+
+    _this.currentCheckState_ = constants_strings.TRANSITION_STATE_INIT;
+    _this.currentAnimationClass_ = '';
+    _this.animEndLatchTimer_ = 0;
+    _this.enableAnimationEndHandler_ = false;
+    return _this;
+  }
+
+  Object.defineProperty(MDCCheckboxFoundation, "cssClasses", {
+    get: function () {
+      return constants_cssClasses;
+    },
+    enumerable: true,
+    configurable: true
+  });
+  Object.defineProperty(MDCCheckboxFoundation, "strings", {
+    get: function () {
+      return constants_strings;
+    },
+    enumerable: true,
+    configurable: true
+  });
+  Object.defineProperty(MDCCheckboxFoundation, "numbers", {
+    get: function () {
+      return constants_numbers;
+    },
+    enumerable: true,
+    configurable: true
+  });
+  Object.defineProperty(MDCCheckboxFoundation, "defaultAdapter", {
+    get: function () {
+      return {
+        addClass: function () {
+          return undefined;
+        },
+        forceLayout: function () {
+          return undefined;
+        },
+        hasNativeControl: function () {
+          return false;
+        },
+        isAttachedToDOM: function () {
+          return false;
+        },
+        isChecked: function () {
+          return false;
+        },
+        isIndeterminate: function () {
+          return false;
+        },
+        removeClass: function () {
+          return undefined;
+        },
+        removeNativeControlAttr: function () {
+          return undefined;
+        },
+        setNativeControlAttr: function () {
+          return undefined;
+        },
+        setNativeControlDisabled: function () {
+          return undefined;
+        }
+      };
+    },
+    enumerable: true,
+    configurable: true
+  });
+
+  MDCCheckboxFoundation.prototype.init = function () {
+    this.currentCheckState_ = this.determineCheckState_();
+    this.updateAriaChecked_();
+    this.adapter.addClass(constants_cssClasses.UPGRADED);
+  };
+
+  MDCCheckboxFoundation.prototype.destroy = function () {
+    clearTimeout(this.animEndLatchTimer_);
+  };
+
+  MDCCheckboxFoundation.prototype.setDisabled = function (disabled) {
+    this.adapter.setNativeControlDisabled(disabled);
+
+    if (disabled) {
+      this.adapter.addClass(constants_cssClasses.DISABLED);
+    } else {
+      this.adapter.removeClass(constants_cssClasses.DISABLED);
+    }
+  };
+  /**
+   * Handles the animationend event for the checkbox
+   */
+
+
+  MDCCheckboxFoundation.prototype.handleAnimationEnd = function () {
+    var _this = this;
+
+    if (!this.enableAnimationEndHandler_) {
+      return;
+    }
+
+    clearTimeout(this.animEndLatchTimer_);
+    this.animEndLatchTimer_ = setTimeout(function () {
+      _this.adapter.removeClass(_this.currentAnimationClass_);
+
+      _this.enableAnimationEndHandler_ = false;
+    }, constants_numbers.ANIM_END_LATCH_MS);
+  };
+  /**
+   * Handles the change event for the checkbox
+   */
+
+
+  MDCCheckboxFoundation.prototype.handleChange = function () {
+    this.transitionCheckState_();
+  };
+
+  MDCCheckboxFoundation.prototype.transitionCheckState_ = function () {
+    if (!this.adapter.hasNativeControl()) {
+      return;
+    }
+
+    var oldState = this.currentCheckState_;
+    var newState = this.determineCheckState_();
+
+    if (oldState === newState) {
+      return;
+    }
+
+    this.updateAriaChecked_();
+    var TRANSITION_STATE_UNCHECKED = constants_strings.TRANSITION_STATE_UNCHECKED;
+    var SELECTED = constants_cssClasses.SELECTED;
+
+    if (newState === TRANSITION_STATE_UNCHECKED) {
+      this.adapter.removeClass(SELECTED);
+    } else {
+      this.adapter.addClass(SELECTED);
+    } // Check to ensure that there isn't a previously existing animation class, in case for example
+    // the user interacted with the checkbox before the animation was finished.
+
+
+    if (this.currentAnimationClass_.length > 0) {
+      clearTimeout(this.animEndLatchTimer_);
+      this.adapter.forceLayout();
+      this.adapter.removeClass(this.currentAnimationClass_);
+    }
+
+    this.currentAnimationClass_ = this.getTransitionAnimationClass_(oldState, newState);
+    this.currentCheckState_ = newState; // Check for parentNode so that animations are only run when the element is attached
+    // to the DOM.
+
+    if (this.adapter.isAttachedToDOM() && this.currentAnimationClass_.length > 0) {
+      this.adapter.addClass(this.currentAnimationClass_);
+      this.enableAnimationEndHandler_ = true;
+    }
+  };
+
+  MDCCheckboxFoundation.prototype.determineCheckState_ = function () {
+    var TRANSITION_STATE_INDETERMINATE = constants_strings.TRANSITION_STATE_INDETERMINATE,
+        TRANSITION_STATE_CHECKED = constants_strings.TRANSITION_STATE_CHECKED,
+        TRANSITION_STATE_UNCHECKED = constants_strings.TRANSITION_STATE_UNCHECKED;
+
+    if (this.adapter.isIndeterminate()) {
+      return TRANSITION_STATE_INDETERMINATE;
+    }
+
+    return this.adapter.isChecked() ? TRANSITION_STATE_CHECKED : TRANSITION_STATE_UNCHECKED;
+  };
+
+  MDCCheckboxFoundation.prototype.getTransitionAnimationClass_ = function (oldState, newState) {
+    var TRANSITION_STATE_INIT = constants_strings.TRANSITION_STATE_INIT,
+        TRANSITION_STATE_CHECKED = constants_strings.TRANSITION_STATE_CHECKED,
+        TRANSITION_STATE_UNCHECKED = constants_strings.TRANSITION_STATE_UNCHECKED;
+    var _a = MDCCheckboxFoundation.cssClasses,
+        ANIM_UNCHECKED_CHECKED = _a.ANIM_UNCHECKED_CHECKED,
+        ANIM_UNCHECKED_INDETERMINATE = _a.ANIM_UNCHECKED_INDETERMINATE,
+        ANIM_CHECKED_UNCHECKED = _a.ANIM_CHECKED_UNCHECKED,
+        ANIM_CHECKED_INDETERMINATE = _a.ANIM_CHECKED_INDETERMINATE,
+        ANIM_INDETERMINATE_CHECKED = _a.ANIM_INDETERMINATE_CHECKED,
+        ANIM_INDETERMINATE_UNCHECKED = _a.ANIM_INDETERMINATE_UNCHECKED;
+
+    switch (oldState) {
+      case TRANSITION_STATE_INIT:
+        if (newState === TRANSITION_STATE_UNCHECKED) {
+          return '';
+        }
+
+        return newState === TRANSITION_STATE_CHECKED ? ANIM_INDETERMINATE_CHECKED : ANIM_INDETERMINATE_UNCHECKED;
+
+      case TRANSITION_STATE_UNCHECKED:
+        return newState === TRANSITION_STATE_CHECKED ? ANIM_UNCHECKED_CHECKED : ANIM_UNCHECKED_INDETERMINATE;
+
+      case TRANSITION_STATE_CHECKED:
+        return newState === TRANSITION_STATE_UNCHECKED ? ANIM_CHECKED_UNCHECKED : ANIM_CHECKED_INDETERMINATE;
+
+      default:
+        // TRANSITION_STATE_INDETERMINATE
+        return newState === TRANSITION_STATE_CHECKED ? ANIM_INDETERMINATE_CHECKED : ANIM_INDETERMINATE_UNCHECKED;
+    }
+  };
+
+  MDCCheckboxFoundation.prototype.updateAriaChecked_ = function () {
+    // Ensure aria-checked is set to mixed if checkbox is in indeterminate state.
+    if (this.adapter.isIndeterminate()) {
+      this.adapter.setNativeControlAttr(constants_strings.ARIA_CHECKED_ATTR, constants_strings.ARIA_CHECKED_INDETERMINATE_VALUE);
+    } else {
+      // The on/off state does not need to keep track of aria-checked, since
+      // the screenreader uses the checked property on the checkbox element.
+      this.adapter.removeNativeControlAttr(constants_strings.ARIA_CHECKED_ATTR);
+    }
+  };
+
+  return MDCCheckboxFoundation;
+}(MDCFoundation);
+
+ // tslint:disable-next-line:no-default-export Needed for backward compatibility with MDC Web v0.44.0 and earlier.
+
+/* harmony default export */ const checkbox_foundation = ((/* unused pure expression or super */ null && (MDCCheckboxFoundation)));
+;// CONCATENATED MODULE: ./node_modules/@material/checkbox/component.js
+/**
+ * @license
+ * Copyright 2016 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+
+
+
+
+
+
+var CB_PROTO_PROPS = ['checked', 'indeterminate'];
+
+var MDCCheckbox =
+/** @class */
+function (_super) {
+  __extends(MDCCheckbox, _super);
+
+  function MDCCheckbox() {
+    var _this = _super !== null && _super.apply(this, arguments) || this;
+
+    _this.ripple_ = _this.createRipple_();
+    return _this;
+  }
+
+  MDCCheckbox.attachTo = function (root) {
+    return new MDCCheckbox(root);
+  };
+
+  Object.defineProperty(MDCCheckbox.prototype, "ripple", {
+    get: function () {
+      return this.ripple_;
+    },
+    enumerable: true,
+    configurable: true
+  });
+  Object.defineProperty(MDCCheckbox.prototype, "checked", {
+    get: function () {
+      return this.nativeControl_.checked;
+    },
+    set: function (checked) {
+      this.nativeControl_.checked = checked;
+    },
+    enumerable: true,
+    configurable: true
+  });
+  Object.defineProperty(MDCCheckbox.prototype, "indeterminate", {
+    get: function () {
+      return this.nativeControl_.indeterminate;
+    },
+    set: function (indeterminate) {
+      this.nativeControl_.indeterminate = indeterminate;
+    },
+    enumerable: true,
+    configurable: true
+  });
+  Object.defineProperty(MDCCheckbox.prototype, "disabled", {
+    get: function () {
+      return this.nativeControl_.disabled;
+    },
+    set: function (disabled) {
+      this.foundation.setDisabled(disabled);
+    },
+    enumerable: true,
+    configurable: true
+  });
+  Object.defineProperty(MDCCheckbox.prototype, "value", {
+    get: function () {
+      return this.nativeControl_.value;
+    },
+    set: function (value) {
+      this.nativeControl_.value = value;
+    },
+    enumerable: true,
+    configurable: true
+  });
+
+  MDCCheckbox.prototype.initialize = function () {
+    var DATA_INDETERMINATE_ATTR = constants_strings.DATA_INDETERMINATE_ATTR;
+    this.nativeControl_.indeterminate = this.nativeControl_.getAttribute(DATA_INDETERMINATE_ATTR) === 'true';
+    this.nativeControl_.removeAttribute(DATA_INDETERMINATE_ATTR);
+  };
+
+  MDCCheckbox.prototype.initialSyncWithDOM = function () {
+    var _this = this;
+
+    this.handleChange_ = function () {
+      return _this.foundation.handleChange();
+    };
+
+    this.handleAnimationEnd_ = function () {
+      return _this.foundation.handleAnimationEnd();
+    };
+
+    this.nativeControl_.addEventListener('change', this.handleChange_);
+    this.listen(getCorrectEventName(window, 'animationend'), this.handleAnimationEnd_);
+    this.installPropertyChangeHooks_();
+  };
+
+  MDCCheckbox.prototype.destroy = function () {
+    this.ripple_.destroy();
+    this.nativeControl_.removeEventListener('change', this.handleChange_);
+    this.unlisten(getCorrectEventName(window, 'animationend'), this.handleAnimationEnd_);
+    this.uninstallPropertyChangeHooks_();
+
+    _super.prototype.destroy.call(this);
+  };
+
+  MDCCheckbox.prototype.getDefaultFoundation = function () {
+    var _this = this; // DO NOT INLINE this variable. For backward compatibility, foundations take a Partial<MDCFooAdapter>.
+    // To ensure we don't accidentally omit any methods, we need a separate, strongly typed adapter variable.
+
+
+    var adapter = {
+      addClass: function (className) {
+        return _this.root.classList.add(className);
+      },
+      forceLayout: function () {
+        return _this.root.offsetWidth;
+      },
+      hasNativeControl: function () {
+        return !!_this.nativeControl_;
+      },
+      isAttachedToDOM: function () {
+        return Boolean(_this.root.parentNode);
+      },
+      isChecked: function () {
+        return _this.checked;
+      },
+      isIndeterminate: function () {
+        return _this.indeterminate;
+      },
+      removeClass: function (className) {
+        _this.root.classList.remove(className);
+      },
+      removeNativeControlAttr: function (attr) {
+        _this.nativeControl_.removeAttribute(attr);
+      },
+      setNativeControlAttr: function (attr, value) {
+        _this.nativeControl_.setAttribute(attr, value);
+      },
+      setNativeControlDisabled: function (disabled) {
+        _this.nativeControl_.disabled = disabled;
+      }
+    };
+    return new MDCCheckboxFoundation(adapter);
+  };
+
+  MDCCheckbox.prototype.createRipple_ = function () {
+    var _this = this; // DO NOT INLINE this variable. For backward compatibility, foundations take a Partial<MDCFooAdapter>.
+    // To ensure we don't accidentally omit any methods, we need a separate, strongly typed adapter variable.
+
+
+    var adapter = __assign(__assign({}, MDCRipple.createAdapter(this)), {
+      deregisterInteractionHandler: function (evtType, handler) {
+        return _this.nativeControl_.removeEventListener(evtType, handler, applyPassive());
+      },
+      isSurfaceActive: function () {
+        return matches(_this.nativeControl_, ':active');
+      },
+      isUnbounded: function () {
+        return true;
+      },
+      registerInteractionHandler: function (evtType, handler) {
+        return _this.nativeControl_.addEventListener(evtType, handler, applyPassive());
+      }
+    });
+
+    return new MDCRipple(this.root, new MDCRippleFoundation(adapter));
+  };
+
+  MDCCheckbox.prototype.installPropertyChangeHooks_ = function () {
+    var _this = this;
+
+    var nativeCb = this.nativeControl_;
+    var cbProto = Object.getPrototypeOf(nativeCb);
+    CB_PROTO_PROPS.forEach(function (controlState) {
+      var desc = Object.getOwnPropertyDescriptor(cbProto, controlState); // We have to check for this descriptor, since some browsers (Safari) don't support its return.
+      // See: https://bugs.webkit.org/show_bug.cgi?id=49739
+
+      if (!validDescriptor(desc)) {
+        return;
+      } // Type cast is needed for compatibility with Closure Compiler.
+
+
+      var nativeGetter = desc.get;
+      var nativeCbDesc = {
+        configurable: desc.configurable,
+        enumerable: desc.enumerable,
+        get: nativeGetter,
+        set: function (state) {
+          desc.set.call(nativeCb, state);
+
+          _this.foundation.handleChange();
+        }
+      };
+      Object.defineProperty(nativeCb, controlState, nativeCbDesc);
+    });
+  };
+
+  MDCCheckbox.prototype.uninstallPropertyChangeHooks_ = function () {
+    var nativeCb = this.nativeControl_;
+    var cbProto = Object.getPrototypeOf(nativeCb);
+    CB_PROTO_PROPS.forEach(function (controlState) {
+      var desc = Object.getOwnPropertyDescriptor(cbProto, controlState);
+
+      if (!validDescriptor(desc)) {
+        return;
+      }
+
+      Object.defineProperty(nativeCb, controlState, desc);
+    });
+  };
+
+  Object.defineProperty(MDCCheckbox.prototype, "nativeControl_", {
+    get: function () {
+      var NATIVE_CONTROL_SELECTOR = constants_strings.NATIVE_CONTROL_SELECTOR;
+      var el = this.root.querySelector(NATIVE_CONTROL_SELECTOR);
+
+      if (!el) {
+        throw new Error("Checkbox component requires a " + NATIVE_CONTROL_SELECTOR + " element");
+      }
+
+      return el;
+    },
+    enumerable: true,
+    configurable: true
+  });
+  return MDCCheckbox;
+}(MDCComponent);
+
+
+
+function validDescriptor(inputPropDesc) {
+  return !!inputPropDesc && typeof inputPropDesc.set === 'function';
+}
+;// CONCATENATED MODULE: ./node_modules/@material/dom/announce.js
+/**
+ * @license
+ * Copyright 2020 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+/**
+ * Priorities for the announce function
+ */
+var AnnouncerPriority;
+
+(function (AnnouncerPriority) {
+  AnnouncerPriority["POLITE"] = "polite";
+  AnnouncerPriority["ASSERTIVE"] = "assertive";
+})(AnnouncerPriority || (AnnouncerPriority = {}));
+/**
+ * Data attribute added to live region element.
+ */
+
+
+var DATA_MDC_DOM_ANNOUNCE = 'data-mdc-dom-announce';
+/**
+ * Announces the given message with optional priority, defaulting to "polite"
+ */
+
+function announce(message, priority) {
+  Announcer.getInstance().say(message, priority);
+}
+
+var Announcer =
+/** @class */
+function () {
+  // Constructor made private to ensure only the singleton is used
+  function Announcer() {
+    this.liveRegions = new Map();
+  }
+
+  Announcer.getInstance = function () {
+    if (!Announcer.instance) {
+      Announcer.instance = new Announcer();
+    }
+
+    return Announcer.instance;
+  };
+
+  Announcer.prototype.say = function (message, priority) {
+    if (priority === void 0) {
+      priority = AnnouncerPriority.POLITE;
+    }
+
+    var liveRegion = this.getLiveRegion(priority); // Reset the region to pick up the message, even if the message is the
+    // exact same as before.
+
+    liveRegion.textContent = ''; // Timeout is necessary for screen readers like NVDA and VoiceOver.
+
+    setTimeout(function () {
+      liveRegion.textContent = message;
+      document.addEventListener('click', clearLiveRegion);
+    }, 1);
+
+    function clearLiveRegion() {
+      liveRegion.textContent = '';
+      document.removeEventListener('click', clearLiveRegion);
+    }
+  };
+
+  Announcer.prototype.getLiveRegion = function (priority) {
+    var existingLiveRegion = this.liveRegions.get(priority);
+
+    if (existingLiveRegion && document.body.contains(existingLiveRegion)) {
+      return existingLiveRegion;
+    }
+
+    var liveRegion = this.createLiveRegion(priority);
+    this.liveRegions.set(priority, liveRegion);
+    return liveRegion;
+  };
+
+  Announcer.prototype.createLiveRegion = function (priority) {
+    var el = document.createElement('div');
+    el.style.position = 'absolute';
+    el.style.top = '-9999px';
+    el.style.left = '-9999px';
+    el.style.height = '1px';
+    el.style.overflow = 'hidden';
+    el.setAttribute('aria-atomic', 'true');
+    el.setAttribute('aria-live', priority);
+    el.setAttribute(DATA_MDC_DOM_ANNOUNCE, 'true');
+    document.body.appendChild(el);
+    return el;
+  };
+
+  return Announcer;
+}();
 ;// CONCATENATED MODULE: ./node_modules/@material/chips/trailingaction/constants.js
 /**
  * @license
@@ -1821,7 +2472,7 @@ var InteractionTrigger;
   InteractionTrigger[InteractionTrigger["ENTER_KEY"] = 5] = "ENTER_KEY";
 })(InteractionTrigger || (InteractionTrigger = {}));
 
-var constants_strings = {
+var trailingaction_constants_strings = {
   ARIA_HIDDEN: 'aria-hidden',
   INTERACTION_EVENT: 'MDCChipTrailingAction:interaction',
   NAVIGATION_EVENT: 'MDCChipTrailingAction:navigation',
@@ -1994,7 +2645,7 @@ function (_super) {
 
   Object.defineProperty(MDCChipTrailingActionFoundation, "strings", {
     get: function () {
-      return constants_strings;
+      return trailingaction_constants_strings;
     },
     enumerable: true,
     configurable: true
@@ -2045,16 +2696,16 @@ function (_super) {
   };
 
   MDCChipTrailingActionFoundation.prototype.removeFocus = function () {
-    this.adapter.setAttribute(constants_strings.TAB_INDEX, '-1');
+    this.adapter.setAttribute(trailingaction_constants_strings.TAB_INDEX, '-1');
   };
 
   MDCChipTrailingActionFoundation.prototype.focus = function () {
-    this.adapter.setAttribute(constants_strings.TAB_INDEX, '0');
+    this.adapter.setAttribute(trailingaction_constants_strings.TAB_INDEX, '0');
     this.adapter.focus();
   };
 
   MDCChipTrailingActionFoundation.prototype.isNavigable = function () {
-    return this.adapter.getAttribute(constants_strings.ARIA_HIDDEN) !== 'true';
+    return this.adapter.getAttribute(trailingaction_constants_strings.ARIA_HIDDEN) !== 'true';
   };
 
   MDCChipTrailingActionFoundation.prototype.shouldNotifyInteractionFromKey_ = function (key) {
@@ -2193,14 +2844,14 @@ function (_super) {
         return _this.root.getAttribute(attr);
       },
       notifyInteraction: function (trigger) {
-        return _this.emit(constants_strings.INTERACTION_EVENT, {
+        return _this.emit(trailingaction_constants_strings.INTERACTION_EVENT, {
           trigger: trigger
         }, true
         /* shouldBubble */
         );
       },
       notifyNavigation: function (key) {
-        _this.emit(constants_strings.NAVIGATION_EVENT, {
+        _this.emit(trailingaction_constants_strings.NAVIGATION_EVENT, {
           key: key
         }, true
         /* shouldBubble */
@@ -2299,7 +2950,7 @@ var chip_constants_strings = {
   TRAILING_ICON_INTERACTION_EVENT: 'MDCChip:trailingIconInteraction',
   TRAILING_ICON_SELECTOR: '.mdc-chip__icon--trailing'
 };
-var constants_cssClasses = {
+var chip_constants_cssClasses = {
   CHECKMARK: 'mdc-chip__checkmark',
   CHIP_EXIT: 'mdc-chip--exit',
   DELETABLE: 'mdc-chip--deletable',
@@ -2405,7 +3056,7 @@ function (_super) {
   });
   Object.defineProperty(MDCChipFoundation, "cssClasses", {
     get: function () {
-      return constants_cssClasses;
+      return chip_constants_cssClasses;
     },
     enumerable: true,
     configurable: true
@@ -2495,15 +3146,15 @@ function (_super) {
   });
 
   MDCChipFoundation.prototype.isSelected = function () {
-    return this.adapter.hasClass(constants_cssClasses.SELECTED);
+    return this.adapter.hasClass(chip_constants_cssClasses.SELECTED);
   };
 
   MDCChipFoundation.prototype.isEditable = function () {
-    return this.adapter.hasClass(constants_cssClasses.EDITABLE);
+    return this.adapter.hasClass(chip_constants_cssClasses.EDITABLE);
   };
 
   MDCChipFoundation.prototype.isEditing = function () {
-    return this.adapter.hasClass(constants_cssClasses.EDITING);
+    return this.adapter.hasClass(chip_constants_cssClasses.EDITING);
   };
 
   MDCChipFoundation.prototype.setSelected = function (selected) {
@@ -2572,7 +3223,7 @@ function (_super) {
 
 
   MDCChipFoundation.prototype.beginExit = function () {
-    this.adapter.addClass(constants_cssClasses.CHIP_EXIT);
+    this.adapter.addClass(chip_constants_cssClasses.CHIP_EXIT);
   };
 
   MDCChipFoundation.prototype.handleClick = function () {
@@ -2594,7 +3245,7 @@ function (_super) {
     var _this = this; // Handle transition end event on the chip when it is about to be removed.
 
 
-    var shouldHandle = this.adapter.eventTargetHasClass(evt.target, constants_cssClasses.CHIP_EXIT);
+    var shouldHandle = this.adapter.eventTargetHasClass(evt.target, chip_constants_cssClasses.CHIP_EXIT);
     var widthIsAnimating = evt.propertyName === 'width';
     var opacityIsAnimating = evt.propertyName === 'opacity';
 
@@ -2630,16 +3281,16 @@ function (_super) {
       return;
     }
 
-    var shouldHideLeadingIcon = this.adapter.eventTargetHasClass(evt.target, constants_cssClasses.LEADING_ICON) && this.adapter.hasClass(constants_cssClasses.SELECTED);
-    var shouldShowLeadingIcon = this.adapter.eventTargetHasClass(evt.target, constants_cssClasses.CHECKMARK) && !this.adapter.hasClass(constants_cssClasses.SELECTED);
+    var shouldHideLeadingIcon = this.adapter.eventTargetHasClass(evt.target, chip_constants_cssClasses.LEADING_ICON) && this.adapter.hasClass(chip_constants_cssClasses.SELECTED);
+    var shouldShowLeadingIcon = this.adapter.eventTargetHasClass(evt.target, chip_constants_cssClasses.CHECKMARK) && !this.adapter.hasClass(chip_constants_cssClasses.SELECTED);
 
     if (shouldHideLeadingIcon) {
-      this.adapter.addClassToLeadingIcon(constants_cssClasses.HIDDEN_LEADING_ICON);
+      this.adapter.addClassToLeadingIcon(chip_constants_cssClasses.HIDDEN_LEADING_ICON);
       return;
     }
 
     if (shouldShowLeadingIcon) {
-      this.adapter.removeClassFromLeadingIcon(constants_cssClasses.HIDDEN_LEADING_ICON);
+      this.adapter.removeClassFromLeadingIcon(chip_constants_cssClasses.HIDDEN_LEADING_ICON);
       return;
     }
   };
@@ -2650,7 +3301,7 @@ function (_super) {
       return;
     }
 
-    this.adapter.addClass(constants_cssClasses.PRIMARY_ACTION_FOCUSED);
+    this.adapter.addClass(chip_constants_cssClasses.PRIMARY_ACTION_FOCUSED);
   };
 
   MDCChipFoundation.prototype.handleFocusOut = function (evt) {
@@ -2663,7 +3314,7 @@ function (_super) {
       this.finishEditing();
     }
 
-    this.adapter.removeClass(constants_cssClasses.PRIMARY_ACTION_FOCUSED);
+    this.adapter.removeClass(chip_constants_cssClasses.PRIMARY_ACTION_FOCUSED);
   };
   /**
    * Handles an interaction event on the trailing icon element. This is used to
@@ -2828,16 +3479,16 @@ function (_super) {
   };
 
   MDCChipFoundation.prototype.isDeleteAction_ = function (evt) {
-    var isDeletable = this.adapter.hasClass(constants_cssClasses.DELETABLE);
+    var isDeletable = this.adapter.hasClass(chip_constants_cssClasses.DELETABLE);
     return isDeletable && (evt.key === chip_constants_strings.BACKSPACE_KEY || evt.key === chip_constants_strings.DELETE_KEY || evt.key === chip_constants_strings.IE_DELETE_KEY);
   };
 
   MDCChipFoundation.prototype.setSelected_ = function (selected) {
     if (selected) {
-      this.adapter.addClass(constants_cssClasses.SELECTED);
+      this.adapter.addClass(chip_constants_cssClasses.SELECTED);
       this.adapter.setPrimaryActionAttr(chip_constants_strings.ARIA_CHECKED, 'true');
     } else {
-      this.adapter.removeClass(constants_cssClasses.SELECTED);
+      this.adapter.removeClass(chip_constants_cssClasses.SELECTED);
       this.adapter.setPrimaryActionAttr(chip_constants_strings.ARIA_CHECKED, 'false');
     }
   };
@@ -2851,16 +3502,16 @@ function (_super) {
   };
 
   MDCChipFoundation.prototype.eventFromPrimaryAction_ = function (evt) {
-    return this.adapter.eventTargetHasClass(evt.target, constants_cssClasses.PRIMARY_ACTION);
+    return this.adapter.eventTargetHasClass(evt.target, chip_constants_cssClasses.PRIMARY_ACTION);
   };
 
   MDCChipFoundation.prototype.startEditing = function () {
-    this.adapter.addClass(constants_cssClasses.EDITING);
+    this.adapter.addClass(chip_constants_cssClasses.EDITING);
     this.adapter.notifyEditStart();
   };
 
   MDCChipFoundation.prototype.finishEditing = function () {
-    this.adapter.removeClass(constants_cssClasses.EDITING);
+    this.adapter.removeClass(chip_constants_cssClasses.EDITING);
     this.adapter.notifyEditFinish();
   };
 
@@ -3049,8 +3700,8 @@ function (_super) {
     this.listen('focusout', this.handleFocusOut_);
 
     if (this.trailingAction_) {
-      this.listen(constants_strings.INTERACTION_EVENT, this.handleTrailingActionInteraction_);
-      this.listen(constants_strings.NAVIGATION_EVENT, this.handleTrailingActionNavigation_);
+      this.listen(trailingaction_constants_strings.INTERACTION_EVENT, this.handleTrailingActionInteraction_);
+      this.listen(trailingaction_constants_strings.NAVIGATION_EVENT, this.handleTrailingActionNavigation_);
     }
   };
 
@@ -3063,8 +3714,8 @@ function (_super) {
     this.unlisten('focusout', this.handleFocusOut_);
 
     if (this.trailingAction_) {
-      this.unlisten(constants_strings.INTERACTION_EVENT, this.handleTrailingActionInteraction_);
-      this.unlisten(constants_strings.NAVIGATION_EVENT, this.handleTrailingActionNavigation_);
+      this.unlisten(trailingaction_constants_strings.INTERACTION_EVENT, this.handleTrailingActionInteraction_);
+      this.unlisten(trailingaction_constants_strings.NAVIGATION_EVENT, this.handleTrailingActionNavigation_);
     }
 
     _super.prototype.destroy.call(this);
@@ -4001,7 +4652,7 @@ var dialog_constants_strings = {
   SUPPRESS_DEFAULT_PRESS_SELECTOR: ['textarea', '.mdc-menu .mdc-list-item'].join(', '),
   SURFACE_SELECTOR: '.mdc-dialog__surface'
 };
-var constants_numbers = {
+var dialog_constants_numbers = {
   DIALOG_ANIMATION_CLOSE_TIME_MS: 75,
   DIALOG_ANIMATION_OPEN_TIME_MS: 150
 };
@@ -4068,7 +4719,7 @@ function (_super) {
   });
   Object.defineProperty(MDCDialogFoundation, "numbers", {
     get: function () {
-      return constants_numbers;
+      return dialog_constants_numbers;
     },
     enumerable: true,
     configurable: true
@@ -4178,7 +4829,7 @@ function (_super) {
         _this.adapter.trapFocus(_this.adapter.getInitialFocusEl());
 
         _this.adapter.notifyOpened();
-      }, constants_numbers.DIALOG_ANIMATION_OPEN_TIME_MS);
+      }, dialog_constants_numbers.DIALOG_ANIMATION_OPEN_TIME_MS);
     });
   };
 
@@ -4208,7 +4859,7 @@ function (_super) {
       _this.handleAnimationTimerEnd_();
 
       _this.adapter.notifyClosed(action);
-    }, constants_numbers.DIALOG_ANIMATION_CLOSE_TIME_MS);
+    }, dialog_constants_numbers.DIALOG_ANIMATION_CLOSE_TIME_MS);
   };
 
   MDCDialogFoundation.prototype.isOpen = function () {
@@ -8611,6 +9262,7 @@ function (_super) {
 
 
 
+
  // Instantiation
 
 var selector = '.mdc-button, .mdc-icon-button, .mdc-fab, .mdc-card__primary-action'; //, .mdc-text-field__ripple';
@@ -8622,6 +9274,10 @@ const mdc_elements = [].map.call(document.querySelectorAll(selector), function (
 // }
 
 window.mdc_elements = mdc_elements;
+
+for (let button of document.querySelectorAll('.mdc-checkbox')) {
+  mdc_elements.push(new MDCCheckbox(button));
+}
 
 try {
   const topAppBarElement = document.querySelector('.mdc-top-app-bar');
