@@ -239,6 +239,7 @@ body[theme] .mdc-card.info-panel {
 
     & img {
         grid-area: image;
+        margin: auto;
     }
     & .dry-indicator {
         grid-area: dry;

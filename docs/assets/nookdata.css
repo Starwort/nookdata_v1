@@ -198,6 +198,7 @@ body[theme] .mdc-card.info-panel {
 }
 body[theme] .mdc-card.info-panel img {
   grid-area: image;
+  margin: auto;
 }
 body[theme] .mdc-card.info-panel .dry-indicator {
   grid-area: dry;
