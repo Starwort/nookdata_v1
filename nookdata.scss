@@ -180,10 +180,10 @@ main {
 
     &.obtained {
         body[theme="dark"] & {
-            &:not(.unavailable) {
+            &:not(.unavailable):not(.modelled) {
                 background-color: transparentize($primary-dark, 0.5);
             }
-            &:not(.danger) {
+            &:not(.danger):not(.modelled) {
                 border: 1px solid $primary-dark;
             }
             color: $primary-dark;
@@ -195,8 +195,12 @@ main {
             }
         }
         body[theme="light"] & {
-            background-color: transparentize($primary-light, 0.5);
-            border: 1px solid $primary-light;
+            &:not(.unavailable):not(.modelled) {
+                background-color: transparentize($primary-light, 0.5);
+            }
+            &:not(.danger):not(.modelled) {
+                border: 1px solid $primary-light;
+            }
             color: $primary-light;
             & + div .mdc-dialog__surface {
                 & .mdc-dialog__title {

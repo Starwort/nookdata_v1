@@ -149,10 +149,10 @@ body[theme=light] .critter-panel.unavailable {
 body[theme=dark] .critter-panel.obtained {
   color: #bb86fc;
 }
-body[theme=dark] .critter-panel.obtained:not(.unavailable) {
+body[theme=dark] .critter-panel.obtained:not(.unavailable):not(.modelled) {
   background-color: rgba(187, 134, 252, 0.5);
 }
-body[theme=dark] .critter-panel.obtained:not(.danger) {
+body[theme=dark] .critter-panel.obtained:not(.danger):not(.modelled) {
   border: 1px solid #bb86fc;
 }
 body[theme=dark] .critter-panel.obtained + div .mdc-dialog__surface {
@@ -162,9 +162,13 @@ body[theme=dark] .critter-panel.obtained + div .mdc-dialog__surface .mdc-dialog_
   color: #bb86fc;
 }
 body[theme=light] .critter-panel.obtained {
-  background-color: rgba(98, 0, 238, 0.5);
-  border: 1px solid #6200ee;
   color: #6200ee;
+}
+body[theme=light] .critter-panel.obtained:not(.unavailable):not(.modelled) {
+  background-color: rgba(98, 0, 238, 0.5);
+}
+body[theme=light] .critter-panel.obtained:not(.danger):not(.modelled) {
+  border: 1px solid #6200ee;
 }
 body[theme=light] .critter-panel.obtained + div .mdc-dialog__surface {
   border: 1px solid #6200ee;
