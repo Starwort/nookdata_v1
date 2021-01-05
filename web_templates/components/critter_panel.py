@@ -59,7 +59,16 @@ class CritterPanel(Component):
             Dialogue(
                 name.capitalize(),
                 CritterInfo(
-                    normal_name, index, quote, dry, rain, price, location, hours, type
+                    normal_name,
+                    index,
+                    quote,
+                    dry,
+                    rain,
+                    price,
+                    location,
+                    hours,
+                    type,
+                    size_or_none,
                 ),
                 id=f"dialogue_{type}_{index:0>2}",
                 classes={"critter-info"},
