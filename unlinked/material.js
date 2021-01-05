@@ -5340,6 +5340,218 @@ function (_super) {
 }(MDCComponent);
 
 
+;// CONCATENATED MODULE: ./node_modules/@material/form-field/constants.js
+/**
+ * @license
+ * Copyright 2017 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+var form_field_constants_cssClasses = {
+  ROOT: 'mdc-form-field'
+};
+var form_field_constants_strings = {
+  LABEL_SELECTOR: '.mdc-form-field > label'
+};
+;// CONCATENATED MODULE: ./node_modules/@material/form-field/foundation.js
+/**
+ * @license
+ * Copyright 2017 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+
+var MDCFormFieldFoundation =
+/** @class */
+function (_super) {
+  __extends(MDCFormFieldFoundation, _super);
+
+  function MDCFormFieldFoundation(adapter) {
+    var _this = _super.call(this, __assign(__assign({}, MDCFormFieldFoundation.defaultAdapter), adapter)) || this;
+
+    _this.click = function () {
+      _this.handleClick();
+    };
+
+    return _this;
+  }
+
+  Object.defineProperty(MDCFormFieldFoundation, "cssClasses", {
+    get: function () {
+      return form_field_constants_cssClasses;
+    },
+    enumerable: true,
+    configurable: true
+  });
+  Object.defineProperty(MDCFormFieldFoundation, "strings", {
+    get: function () {
+      return form_field_constants_strings;
+    },
+    enumerable: true,
+    configurable: true
+  });
+  Object.defineProperty(MDCFormFieldFoundation, "defaultAdapter", {
+    get: function () {
+      return {
+        activateInputRipple: function () {
+          return undefined;
+        },
+        deactivateInputRipple: function () {
+          return undefined;
+        },
+        deregisterInteractionHandler: function () {
+          return undefined;
+        },
+        registerInteractionHandler: function () {
+          return undefined;
+        }
+      };
+    },
+    enumerable: true,
+    configurable: true
+  });
+
+  MDCFormFieldFoundation.prototype.init = function () {
+    this.adapter.registerInteractionHandler('click', this.click);
+  };
+
+  MDCFormFieldFoundation.prototype.destroy = function () {
+    this.adapter.deregisterInteractionHandler('click', this.click);
+  };
+
+  MDCFormFieldFoundation.prototype.handleClick = function () {
+    var _this = this;
+
+    this.adapter.activateInputRipple();
+    requestAnimationFrame(function () {
+      _this.adapter.deactivateInputRipple();
+    });
+  };
+
+  return MDCFormFieldFoundation;
+}(MDCFoundation);
+
+ // tslint:disable-next-line:no-default-export Needed for backward compatibility with MDC Web v0.44.0 and earlier.
+
+/* harmony default export */ const form_field_foundation = ((/* unused pure expression or super */ null && (MDCFormFieldFoundation)));
+;// CONCATENATED MODULE: ./node_modules/@material/form-field/component.js
+/**
+ * @license
+ * Copyright 2017 Google Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+
+
+
+var MDCFormField =
+/** @class */
+function (_super) {
+  __extends(MDCFormField, _super);
+
+  function MDCFormField() {
+    return _super !== null && _super.apply(this, arguments) || this;
+  }
+
+  MDCFormField.attachTo = function (root) {
+    return new MDCFormField(root);
+  };
+
+  MDCFormField.prototype.labelEl = function () {
+    var LABEL_SELECTOR = MDCFormFieldFoundation.strings.LABEL_SELECTOR;
+    return this.root.querySelector(LABEL_SELECTOR);
+  };
+
+  MDCFormField.prototype.getDefaultFoundation = function () {
+    var _this = this; // DO NOT INLINE this variable. For backward compatibility, foundations take a Partial<MDCFooAdapter>.
+    // To ensure we don't accidentally omit any methods, we need a separate, strongly typed adapter variable.
+
+
+    var adapter = {
+      activateInputRipple: function () {
+        if (_this.input && _this.input.ripple) {
+          _this.input.ripple.activate();
+        }
+      },
+      deactivateInputRipple: function () {
+        if (_this.input && _this.input.ripple) {
+          _this.input.ripple.deactivate();
+        }
+      },
+      deregisterInteractionHandler: function (evtType, handler) {
+        var labelEl = _this.labelEl();
+
+        if (labelEl) {
+          labelEl.removeEventListener(evtType, handler);
+        }
+      },
+      registerInteractionHandler: function (evtType, handler) {
+        var labelEl = _this.labelEl();
+
+        if (labelEl) {
+          labelEl.addEventListener(evtType, handler);
+        }
+      }
+    };
+    return new MDCFormFieldFoundation(adapter);
+  };
+
+  return MDCFormField;
+}(MDCComponent);
+
+
 ;// CONCATENATED MODULE: ./node_modules/@material/icon-button/constants.js
 /**
  * @license
@@ -9263,6 +9475,7 @@ function (_super) {
 
 
 
+
  // Instantiation
 
 var selector = '.mdc-button, .mdc-icon-button, .mdc-fab, .mdc-card__primary-action'; //, .mdc-text-field__ripple';
@@ -9275,8 +9488,14 @@ const mdc_elements = [].map.call(document.querySelectorAll(selector), function (
 
 window.mdc_elements = mdc_elements;
 
-for (let button of document.querySelectorAll('.mdc-checkbox')) {
-  mdc_elements.push(new MDCCheckbox(button));
+for (let checkbox of document.querySelectorAll('.mdc-checkbox')) {
+  let mdc_checkbox = new MDCCheckbox(checkbox);
+  checkbox.mdc_checkbox = mdc_checkbox;
+  let form_field = checkbox.parentElement;
+  let mdc_form_field = new MDCFormField(form_field);
+  mdc_form_field.input = mdc_checkbox;
+  mdc_elements.push(mdc_form_field);
+  mdc_elements.push(mdc_checkbox);
 }
 
 try {
@@ -9288,8 +9507,8 @@ for (let button of document.querySelectorAll('.mdc-icon-button')) {
   mdc_elements.push(new MDCIconButtonToggle(button));
 }
 
-for (let chipSetEl of document.querySelectorAll('.mdc-chip-set')) {
-  mdc_elements.push(new MDCChipSet(chipSetEl));
+for (let chip_set of document.querySelectorAll('.mdc-chip-set')) {
+  mdc_elements.push(new MDCChipSet(chip_set));
 }
 
 const dialogues = {};
