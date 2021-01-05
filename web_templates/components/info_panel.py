@@ -54,6 +54,19 @@ class InfoPanel(dom.Component):
                     if type == "fish"
                     else ""
                 ),
+                mdc.Checkbox(
+                    "Obtained",
+                    form_field_classes={"checkbox-obtained"},
+                    onclick=f"mark_obtained('{type}_{index:0>2}',this.checked)",
+                    id=f"checkbox_obtain_{type}_{index:0>2}",
+                ),
+                mdc.Checkbox(
+                    "Modelled",
+                    form_field_classes={"checkbox-modelled"},
+                    onclick=f"mark_modelled('{type}_{index:0>2}',this.checked)",
+                    id=f"checkbox_model_{type}_{index:0>2}",
+                    disabled=True,
+                ),
             ),
             outlined=True,
             classes={"info-panel"},

@@ -194,18 +194,20 @@ body[theme=light] .critter-panel.modelled + div .mdc-dialog__surface .mdc-dialog
 body[theme] .mdc-card.info-panel {
   display: grid;
   padding: 16px;
-  grid: "image dry rain" "image label_found found" "image label_price price" "image label_shadow shadow";
+  grid: "image dry rain" "image label_found found" "image label_price price" "image label_shadow shadow" "obtained modelled modelled";
 }
 body[theme] .mdc-card.info-panel img {
   grid-area: image;
   margin: auto;
 }
 body[theme] .mdc-card.info-panel .dry-indicator {
+  cursor: default;
   grid-area: dry;
   color: #e69038;
   font-size: xx-large;
 }
 body[theme] .mdc-card.info-panel .rain-indicator {
+  cursor: default;
   grid-area: rain;
   font-size: xx-large;
 }
@@ -232,6 +234,12 @@ body[theme] .mdc-card.info-panel .shadow-size {
 body[theme] .mdc-card.info-panel .label-shadow-size {
   grid-area: label_shadow;
   margin: 0.25em;
+}
+body[theme] .mdc-card.info-panel .checkbox-obtained {
+  grid-area: obtained;
+}
+body[theme] .mdc-card.info-panel .checkbox-modelled {
+  grid-area: modelled;
 }
 
 .cursor-alias {

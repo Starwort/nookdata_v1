@@ -195,11 +195,16 @@ function ready() {
         let modelled = get_or_insert(critterpedia_data, `bug_${index}_modelled`, false);
         bug_card.obtained = obtained;
         bug_card.modelled = modelled;
+        let obtain_checkbox = document.getElementById(`checkbox_obtain_bugs_${index}__root`).mdc_checkbox;
+        let model_checkbox = document.getElementById(`checkbox_model_bugs_${index}__root`).mdc_checkbox;
         if (obtained) {
+            obtain_checkbox.checked = true;
+            model_checkbox.disabled = false;
             obtained_bugs++;
             bug_card.classList.add('obtained');
         }
         if (modelled) {
+            model_checkbox.checked = true;
             modelled_bugs++;
             bug_card.classList.add('modelled');
         }
@@ -238,11 +243,16 @@ function ready() {
         let modelled = get_or_insert(critterpedia_data, `fish_${index}_modelled`, false);
         fish_card.obtained = obtained;
         fish_card.modelled = modelled;
+        let obtain_checkbox = document.getElementById(`checkbox_obtain_fish_${index}__root`).mdc_checkbox;
+        let model_checkbox = document.getElementById(`checkbox_model_fish_${index}__root`).mdc_checkbox;
         if (obtained) {
+            obtain_checkbox.checked = true;
+            model_checkbox.disabled = false;
             obtained_fish++;
             fish_card.classList.add('obtained');
         }
         if (modelled) {
+            model_checkbox.checked = true;
             modelled_fish++;
             fish_card.classList.add('modelled');
         }
@@ -285,8 +295,10 @@ window.begin_scripts = ready;
 
 function mark_obtained(set_id, obtained) {
     let card = document.getElementById('card_' + set_id);
+    let model_checkbox = document.getElementById('checkbox_model_' + set_id + '__root').mdc_checkbox;
     card.obtained = obtained;
     if (obtained) {
+        model_checkbox.disabled = false;
         card.classList.add('obtained');
         if (set_id.startsWith('bug')) {
             obtained_bugs++;
@@ -294,6 +306,11 @@ function mark_obtained(set_id, obtained) {
         document.getElementById('obtained_bugs').innerText = obtained_bugs;
         document.getElementById('obtained_fish').innerText = obtained_fish;
     } else {
+        if (model_checkbox.checked) {
+            model_checkbox.checked = false;
+            mark_modelled(set_id, false);
+        }
+        model_checkbox.disabled = true;
         card.classList.remove('obtained');
         if (set_id.startsWith('bug')) {
             obtained_bugs--;

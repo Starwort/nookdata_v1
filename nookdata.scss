@@ -235,18 +235,21 @@ body[theme] .mdc-card.info-panel {
         "image dry rain"
         "image label_found found"
         "image label_price price"
-        "image label_shadow shadow";
+        "image label_shadow shadow"
+        "obtained modelled modelled";
 
     & img {
         grid-area: image;
         margin: auto;
     }
     & .dry-indicator {
+        cursor: default;
         grid-area: dry;
         color: $summer;
         font-size: xx-large;
     }
     & .rain-indicator {
+        cursor: default;
         grid-area: rain;
         font-size: xx-large;
     }
@@ -273,6 +276,12 @@ body[theme] .mdc-card.info-panel {
     & .label-shadow-size {
         grid-area: label_shadow;
         margin: 0.25em;
+    }
+    & .checkbox-obtained {
+        grid-area: obtained;
+    }
+    & .checkbox-modelled {
+        grid-area: modelled;
     }
 }
 
