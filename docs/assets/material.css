@@ -11645,7 +11645,6 @@ body:not([theme=light]) {
    * THE SOFTWARE.
    */
   --mdc-theme-primary: #bb86fc;
-  --mdc-theme-secondary: #03dac6;
   --mdc-theme-background: #121212;
   --mdc-theme-surface: #1e1e1e;
   --mdc-theme-error: #cf6679;
@@ -22646,6 +22645,7 @@ body:not([theme=light]) .mdc-card {
 
 body[theme=light] {
   margin: 0px;
+  --mdc-theme-secondary: #03dac6;
   /**
    * @license
    * Copyright 2018 Google Inc.
