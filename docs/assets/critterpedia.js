@@ -339,6 +339,18 @@ function mark_modelled(set_id, modelled) {
         document.getElementById('modelled_fish').innerText = modelled_fish;
     }
     critterpedia_data[set_id.replace('bugs', 'bug') + '_modelled'] = modelled;
+    if (card.months[(month + month_offset) % 12] && !card.months[(month + month_offset + 1) % 12]) {
+        card.title = card.name.replace(/(?<=^|\s)\w/g, (match) => (match.toUpperCase())); + '\nUnavailable next month';
+    } else {
+        card.title = card.name.replace(/(?<=^|\s)\w/g, (match) => (match.toUpperCase()));;
+        if (!card.months[(month + month_offset) % 12]) {
+            card.title += '\nUnavailable';
+        }
+    }
+    if (card.modelled) {
+        card.title += '\nModel obtained!';
+    }
+    card.title += '\nClick for more details';
 }
 
 function load_window_if_required() {
