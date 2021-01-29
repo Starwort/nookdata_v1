@@ -121,6 +121,7 @@ body[theme=light] .critter-table-title .modelled-count {
 .critter-panel {
   text-align: center;
   width: 66px;
+  margin: 3px;
 }
 body[theme=light] .critter-panel {
   border: 1px solid transparent;

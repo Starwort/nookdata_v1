@@ -148,6 +148,7 @@ main {
 .critter-panel {
     text-align: center;
     width: 66px;
+    margin: 3px;
 
     body[theme="light"] & {
         border: 1px solid transparent;
