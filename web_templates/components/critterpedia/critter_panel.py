@@ -1,6 +1,6 @@
 import typing
 
-from dom_generator import Component, ElementGroup, IdiomaticText, Image, Script
+from dom_generator import Component, ElementGroup, IdiomaticText, Image
 from dom_generator.material_design import Card, Dialogue
 
 from . import CritterInfo
