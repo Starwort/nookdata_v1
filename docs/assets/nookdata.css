@@ -66,6 +66,13 @@ body[theme=light] .mdc-card.card-inactive {
 .critter-info {
   text-align: center;
 }
+.critter-info .mdc-dialog__container .mdc-dialog__surface {
+  border: 1px solid transparent;
+  transition: border-color 0.5s ease-in-out;
+}
+.critter-info .mdc-dialog__container .mdc-dialog__surface .mdc-dialog__title {
+  transition: color 0.5s ease-in-out;
+}
 
 .time-tracker {
   width: 100%;
@@ -78,7 +85,6 @@ body[theme=light] .mdc-card.card-inactive {
 
 .critter-table-title {
   font-size: 1.5em;
-  padding-bottom: 16px;
 }
 .critter-table-title .critter-type::after {
   content: " - ";
@@ -106,6 +112,10 @@ body[theme=light] .critter-table-title .modelled-count {
   text-align: center;
   width: 66px;
   margin: 3px;
+  transition: opacity 0.5s ease-in-out, color 1s ease-in-out, background-color 0.5s ease-in-out, border-color 0.5s ease-in-out;
+}
+body[theme] .critter-panel {
+  background-color: transparent;
 }
 body[theme=light] .critter-panel {
   border: 1px solid transparent;
@@ -147,7 +157,7 @@ body[theme=dark] .critter-panel.obtained:not(.unavailable):not(.modelled):not(.d
   color: #bb86fc;
 }
 body[theme=dark] .critter-panel.obtained + div .mdc-dialog__surface {
-  border: 1px solid #bb86fc;
+  border-color: #bb86fc;
 }
 body[theme=dark] .critter-panel.obtained + div .mdc-dialog__surface .mdc-dialog__title {
   color: #bb86fc;
@@ -162,7 +172,7 @@ body[theme=light] .critter-panel.obtained:not(.unavailable):not(.modelled):not(.
   color: #6200ee;
 }
 body[theme=light] .critter-panel.obtained + div .mdc-dialog__surface {
-  border: 1px solid #6200ee;
+  border-color: #6200ee;
 }
 body[theme=light] .critter-panel.obtained + div .mdc-dialog__surface .mdc-dialog__title {
   color: #6200ee;
@@ -173,7 +183,7 @@ body[theme=dark] .critter-panel.modelled {
   color: gold;
 }
 body[theme=dark] .critter-panel.modelled + div .mdc-dialog__surface {
-  border: 1px solid gold;
+  border-color: gold;
 }
 body[theme=dark] .critter-panel.modelled + div .mdc-dialog__surface .mdc-dialog__title {
   color: gold;
@@ -184,7 +194,7 @@ body[theme=light] .critter-panel.modelled {
   color: #fbc02d;
 }
 body[theme=light] .critter-panel.modelled + div .mdc-dialog__surface {
-  border: 1px solid #fbc02d;
+  border-color: #fbc02d;
 }
 body[theme=light] .critter-panel.modelled + div .mdc-dialog__surface .mdc-dialog__title {
   color: #fbc02d;

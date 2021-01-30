@@ -81,6 +81,13 @@ $error-light: #b00020;
 }
 
 .critter-info {
+    & .mdc-dialog__container .mdc-dialog__surface {
+        border: 1px solid transparent;
+        transition: border-color 0.5s ease-in-out;
+        & .mdc-dialog__title {
+            transition: color 0.5s ease-in-out;
+        }
+    }
     text-align: center;
 }
 
@@ -126,13 +133,17 @@ $error-light: #b00020;
         }
     }
     font-size: 1.5em;
-    padding-bottom: 16px;
 }
 
 .critter-panel {
     text-align: center;
     width: 66px;
     margin: 3px;
+    body[theme] & {
+        background-color: transparent;
+    }
+    transition: opacity 0.5s ease-in-out, color 1s ease-in-out,
+        background-color 0.5s ease-in-out, border-color 0.5s ease-in-out;
 
     body[theme="light"] & {
         border: 1px solid transparent;
@@ -182,7 +193,7 @@ $error-light: #b00020;
                 & .mdc-dialog__title {
                     color: $primary-dark;
                 }
-                border: 1px solid $primary-dark;
+                border-color: $primary-dark;
             }
         }
         body[theme="light"] & {
@@ -197,7 +208,7 @@ $error-light: #b00020;
                 & .mdc-dialog__title {
                     color: $primary-light;
                 }
-                border: 1px solid $primary-light;
+                border-color: $primary-light;
             }
         }
     }
@@ -210,7 +221,7 @@ $error-light: #b00020;
                 & .mdc-dialog__title {
                     color: $modelled-dark;
                 }
-                border: 1px solid $modelled-dark;
+                border-color: $modelled-dark;
             }
         }
         body[theme="light"] & {
@@ -221,7 +232,7 @@ $error-light: #b00020;
                 & .mdc-dialog__title {
                     color: $modelled-light;
                 }
-                border: 1px solid $modelled-light;
+                border-color: $modelled-light;
             }
         }
     }
