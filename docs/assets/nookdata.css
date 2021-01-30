@@ -122,7 +122,7 @@ body[theme=light] .critter-panel {
   opacity: 0.3;
 }
 body[theme=dark] .critter-panel.unavailable {
-  background-color: rgba(207, 102, 121, 0.5);
+  background-color: rgba(207, 102, 121, 0.3);
   color: #cf6679;
   border: 1px solid #cf6679;
 }
@@ -138,7 +138,7 @@ body[theme=light] .critter-panel.danger {
   color: #b00020;
 }
 body[theme=dark] .critter-panel.obtained {
-  background-color: rgba(187, 134, 252, 0.5);
+  background-color: rgba(187, 134, 252, 0.3);
 }
 body[theme=dark] .critter-panel.obtained:not(.unavailable):not(.modelled) {
   border: 1px solid #bb86fc;
@@ -168,7 +168,7 @@ body[theme=light] .critter-panel.obtained + div .mdc-dialog__surface .mdc-dialog
   color: #6200ee;
 }
 body[theme=dark] .critter-panel.modelled {
-  background-color: rgba(255, 215, 0, 0.5);
+  background-color: rgba(255, 215, 0, 0.3);
   border: 1px solid gold;
   color: gold;
 }

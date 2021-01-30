@@ -153,7 +153,7 @@ $error-light: #b00020;
     }
 
     body[theme="dark"] &.unavailable {
-        background-color: transparentize($error-dark, 0.5);
+        background-color: transparentize($error-dark, 0.7);
         color: $error-dark;
         border: 1px solid $error-dark;
     }
@@ -171,7 +171,7 @@ $error-light: #b00020;
 
     &.obtained {
         body[theme="dark"] & {
-            background-color: transparentize($primary-dark, 0.5);
+            background-color: transparentize($primary-dark, 0.7);
             &:not(.unavailable):not(.modelled) {
                 &:not(.danger) {
                     color: $primary-dark;
@@ -203,7 +203,7 @@ $error-light: #b00020;
     }
     &.modelled {
         body[theme="dark"] & {
-            background-color: transparentize($modelled-dark, 0.5);
+            background-color: transparentize($modelled-dark, 0.7);
             border: 1px solid $modelled-dark;
             color: $modelled-dark;
             & + div .mdc-dialog__surface {
