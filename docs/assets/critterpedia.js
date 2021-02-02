@@ -457,8 +457,3 @@ function search_critters() {
         }
     }
 }
-const price_dropdown = document.getElementById('critter-price-comp').mdc_dropdown;
-price_dropdown.listen('MDCSelect:change', () => {
-    search_parameters.price_comp = price_dropdown.value;
-    search_critters();
-});

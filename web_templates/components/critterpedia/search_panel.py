@@ -39,14 +39,15 @@ class SearchPanel(dom.Component):
                 ),
                 dom.Span("Price", id="price-label"),
                 mdc.Dropdown(
-                    "Operation",
+                    "Comparison",
                     [
-                        (">=", "≥", False),
-                        ("=", "=", False),
-                        ("<=", "≤", False),
+                        (">=", "is more than", False),
+                        ("=", "is exactly", False),
+                        ("<=", "is less than", False),
                     ],
                     0,
                     "critter-price-comp",
+                    classes={"critter-price-comp"},
                 ),
                 mdc.TextField(
                     "Value",
@@ -54,5 +55,5 @@ class SearchPanel(dom.Component):
                     oninput="search_parameters.price=this.value;search_critters()",
                 ),
             ),
-            classes={"padded-container", "pad-text"},
+            classes={"padded-container", "pad-text", "search-container"},
         )

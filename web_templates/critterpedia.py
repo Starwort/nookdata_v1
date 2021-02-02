@@ -16,7 +16,9 @@ async def _generate():
     return components.NookDataPage(
         "Critterpedia",
         ["assets/critterpedia.js"],
-        "begin_scripts();load_window_if_required();",
+        "begin_scripts();load_window_if_required();p=document.getElementById("
+        "'critter-price-comp').mdc_dropdown;p.listen('MDCSelect:change',()=>{"
+        "search_parameters.price_comp=p.value;search_critters();});",
         components.SearchPanel(),
         mdc.Card(
             dom.ContentDivision(

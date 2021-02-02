@@ -14,7 +14,6 @@ body[hemisphere=south] .mdc-card.card-winter {
 body:not([hemisphere=south]) .mdc-card.card-winter {
   background-color: #3c84c6;
 }
-
 .mdc-card.card-spring {
   color: #000000;
   color: var(--mdc-theme-text-primary-on-light, #000000);
@@ -25,7 +24,6 @@ body[hemisphere=south] .mdc-card.card-spring {
 body:not([hemisphere=south]) .mdc-card.card-spring {
   background-color: #38761c;
 }
-
 .mdc-card.card-summer {
   color: #000000;
   color: var(--mdc-theme-text-primary-on-light, #000000);
@@ -36,7 +34,6 @@ body[hemisphere=south] .mdc-card.card-summer {
 body:not([hemisphere=south]) .mdc-card.card-summer {
   background-color: #e69038;
 }
-
 .mdc-card.card-autumn {
   color: #000000;
   color: var(--mdc-theme-text-primary-on-light, #000000);
@@ -47,7 +44,6 @@ body[hemisphere=south] .mdc-card.card-autumn {
 body:not([hemisphere=south]) .mdc-card.card-autumn {
   background-color: #b45f04;
 }
-
 body[theme=dark] .mdc-card.card-inactive {
   opacity: 0.3;
 }
@@ -200,60 +196,6 @@ body[theme=light] .critter-panel.modelled + div .mdc-dialog__surface .mdc-dialog
   color: #fbc02d;
 }
 
-body[theme] .mdc-card.info-panel {
-  display: grid;
-  padding: 16px;
-  grid: "image dry rain" "image label_found found" "image label_price price" "image label_shadow shadow" "obtained modelled modelled";
-  grid-template-columns: 50% 25% 25%;
-}
-body[theme] .mdc-card.info-panel img {
-  grid-area: image;
-  margin: auto;
-}
-body[theme] .mdc-card.info-panel .dry-indicator {
-  cursor: default;
-  grid-area: dry;
-  color: #e69038;
-  font-size: xx-large;
-}
-body[theme] .mdc-card.info-panel .rain-indicator {
-  cursor: default;
-  grid-area: rain;
-  font-size: xx-large;
-}
-body[theme] .mdc-card.info-panel .location {
-  grid-area: found;
-  margin: 0.25em;
-}
-body[theme] .mdc-card.info-panel .label-location {
-  grid-area: label_found;
-  margin: 0.25em;
-}
-body[theme] .mdc-card.info-panel .sell-value {
-  grid-area: price;
-  margin: 0.25em;
-}
-body[theme] .mdc-card.info-panel .label-sell-value {
-  grid-area: label_price;
-  margin: 0.25em;
-}
-body[theme] .mdc-card.info-panel .shadow-size {
-  grid-area: shadow;
-  margin: 0.25em;
-}
-body[theme] .mdc-card.info-panel .label-shadow-size {
-  grid-area: label_shadow;
-  margin: 0.25em;
-}
-body[theme] .mdc-card.info-panel .checkbox-obtained {
-  grid-area: obtained;
-  margin: auto;
-}
-body[theme] .mdc-card.info-panel .checkbox-modelled {
-  grid-area: modelled;
-  margin: auto;
-}
-
 .cursor-alias {
   cursor: alias;
 }
@@ -394,7 +336,6 @@ body[theme] .mdc-card.info-panel .checkbox-modelled {
   cursor: zoom-out;
 }
 
-/* width */
 ::-webkit-scrollbar {
   width: 5px;
   height: 5px;
@@ -429,6 +370,110 @@ body[theme] .mdc-card.card-current {
 }
 body[theme] .mdc-top-app-bar__title {
   line-height: 0;
+}
+body[theme] .search-container {
+  display: grid;
+  grid: "title title title" "name location size" "now soon need" "price comp value";
+}
+body[theme] .search-container #critter-name, body[theme] .search-container #critter-name__form-field {
+  grid-area: name;
+  width: 400px;
+  margin: 3px;
+}
+body[theme] .search-container #critter-location, body[theme] .search-container #critter-location__form-field {
+  grid-area: location;
+  width: 400px;
+  margin: 3px;
+}
+body[theme] .search-container #critter-size, body[theme] .search-container #critter-size__form-field {
+  grid-area: size;
+  width: 400px;
+  margin: 3px;
+}
+body[theme] .search-container #critter-now, body[theme] .search-container #critter-now__form-field {
+  grid-area: now;
+  width: 400px;
+  margin: 3px;
+}
+body[theme] .search-container #critter-soon, body[theme] .search-container #critter-soon__form-field {
+  grid-area: soon;
+  width: 400px;
+  margin: 3px;
+}
+body[theme] .search-container #critter-need, body[theme] .search-container #critter-need__form-field {
+  grid-area: need;
+  width: 400px;
+  margin: 3px;
+}
+body[theme] .search-container > div {
+  grid-area: title;
+}
+body[theme] .search-container #price-label {
+  grid-area: price;
+  margin: auto;
+}
+body[theme] .search-container .critter-price-comp {
+  grid-area: comp;
+  width: 400px;
+  margin: 3px;
+}
+body[theme] .search-container #critter-price-value {
+  grid-area: value;
+  width: 400px;
+  margin: 3px;
+}
+body[theme] .mdc-card.info-panel {
+  display: grid;
+  padding: 16px;
+  grid: "image dry rain" "image label_found found" "image label_price price" "image label_shadow shadow" "obtained modelled modelled";
+  grid-template-columns: 50% 25% 25%;
+}
+body[theme] .mdc-card.info-panel img {
+  grid-area: image;
+  margin: auto;
+}
+body[theme] .mdc-card.info-panel .dry-indicator {
+  cursor: default;
+  grid-area: dry;
+  color: #e69038;
+  font-size: xx-large;
+}
+body[theme] .mdc-card.info-panel .rain-indicator {
+  cursor: default;
+  grid-area: rain;
+  font-size: xx-large;
+}
+body[theme] .mdc-card.info-panel .location {
+  grid-area: found;
+  margin: 0.25em;
+}
+body[theme] .mdc-card.info-panel .label-location {
+  grid-area: label_found;
+  margin: 0.25em;
+}
+body[theme] .mdc-card.info-panel .sell-value {
+  grid-area: price;
+  margin: 0.25em;
+}
+body[theme] .mdc-card.info-panel .label-sell-value {
+  grid-area: label_price;
+  margin: 0.25em;
+}
+body[theme] .mdc-card.info-panel .shadow-size {
+  grid-area: shadow;
+  margin: 0.25em;
+}
+body[theme] .mdc-card.info-panel .label-shadow-size {
+  grid-area: label_shadow;
+  margin: 0.25em;
+}
+body[theme] .mdc-card.info-panel .checkbox-obtained {
+  grid-area: obtained;
+  margin: auto;
+}
+body[theme] .mdc-card.info-panel .checkbox-modelled {
+  grid-area: modelled;
+  margin: auto;
 }
 
 .mdc-drawer-app-content {

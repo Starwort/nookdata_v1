@@ -33707,3 +33707,9 @@ body[theme=light] .float-bottom-right {
 .mdc-dialog__actions:empty {
   display: none !important;
 }
+
+body[theme=light] .mdc-select__selected-text-container,
+body:not([theme=light]) .mdc-select__selected-text-container {
+  width: 100%;
+  text-align: left;
+}

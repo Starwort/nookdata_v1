@@ -19,56 +19,58 @@ $error-light: #b00020;
         format("truetype");
 }
 
-.mdc-card.card-winter {
-    body[hemisphere="south"] & {
-        background-color: $summer;
+.mdc-card {
+    &.card-winter {
+        body[hemisphere="south"] & {
+            background-color: $summer;
+        }
+        body:not([hemisphere="south"]) & {
+            background-color: $winter;
+        }
+        color: #000000;
+        color: var(--mdc-theme-text-primary-on-light, #000000);
     }
-    body:not([hemisphere="south"]) & {
-        background-color: $winter;
-    }
-    color: #000000;
-    color: var(--mdc-theme-text-primary-on-light, #000000);
-}
 
-.mdc-card.card-spring {
-    body[hemisphere="south"] & {
-        background-color: $autumn;
+    &.card-spring {
+        body[hemisphere="south"] & {
+            background-color: $autumn;
+        }
+        body:not([hemisphere="south"]) & {
+            background-color: $spring;
+        }
+        color: #000000;
+        color: var(--mdc-theme-text-primary-on-light, #000000);
     }
-    body:not([hemisphere="south"]) & {
-        background-color: $spring;
-    }
-    color: #000000;
-    color: var(--mdc-theme-text-primary-on-light, #000000);
-}
 
-.mdc-card.card-summer {
-    body[hemisphere="south"] & {
-        background-color: $winter;
+    &.card-summer {
+        body[hemisphere="south"] & {
+            background-color: $winter;
+        }
+        body:not([hemisphere="south"]) & {
+            background-color: $summer;
+        }
+        color: #000000;
+        color: var(--mdc-theme-text-primary-on-light, #000000);
     }
-    body:not([hemisphere="south"]) & {
-        background-color: $summer;
-    }
-    color: #000000;
-    color: var(--mdc-theme-text-primary-on-light, #000000);
-}
 
-.mdc-card.card-autumn {
-    body[hemisphere="south"] & {
-        background-color: $spring;
+    &.card-autumn {
+        body[hemisphere="south"] & {
+            background-color: $spring;
+        }
+        body:not([hemisphere="south"]) & {
+            background-color: $autumn;
+        }
+        color: #000000;
+        color: var(--mdc-theme-text-primary-on-light, #000000);
     }
-    body:not([hemisphere="south"]) & {
-        background-color: $autumn;
-    }
-    color: #000000;
-    color: var(--mdc-theme-text-primary-on-light, #000000);
-}
 
-.mdc-card.card-inactive {
-    body[theme="dark"] & {
-        opacity: 0.3;
-    }
-    body[theme="light"] & {
-        opacity: 0.6;
+    &.card-inactive {
+        body[theme="dark"] & {
+            opacity: 0.3;
+        }
+        body[theme="light"] & {
+            opacity: 0.6;
+        }
     }
 }
 
@@ -238,66 +240,6 @@ $error-light: #b00020;
     }
 }
 
-body[theme] .mdc-card.info-panel {
-    display: grid;
-    padding: 16px;
-    grid:
-        "image dry rain"
-        "image label_found found"
-        "image label_price price"
-        "image label_shadow shadow"
-        "obtained modelled modelled";
-    grid-template-columns: 50% 25% 25%;
-
-    & img {
-        grid-area: image;
-        margin: auto;
-    }
-    & .dry-indicator {
-        cursor: default;
-        grid-area: dry;
-        color: $summer;
-        font-size: xx-large;
-    }
-    & .rain-indicator {
-        cursor: default;
-        grid-area: rain;
-        font-size: xx-large;
-    }
-    & .location {
-        grid-area: found;
-        margin: 0.25em;
-    }
-    & .label-location {
-        grid-area: label_found;
-        margin: 0.25em;
-    }
-    & .sell-value {
-        grid-area: price;
-        margin: 0.25em;
-    }
-    & .label-sell-value {
-        grid-area: label_price;
-        margin: 0.25em;
-    }
-    & .shadow-size {
-        grid-area: shadow;
-        margin: 0.25em;
-    }
-    & .label-shadow-size {
-        grid-area: label_shadow;
-        margin: 0.25em;
-    }
-    & .checkbox-obtained {
-        grid-area: obtained;
-        margin: auto;
-    }
-    & .checkbox-modelled {
-        grid-area: modelled;
-        margin: auto;
-    }
-}
-
 $cursor-modes: (
     alias,
     all-scroll,
@@ -342,7 +284,6 @@ $cursor-modes: (
     }
 }
 
-/* width */
 ::-webkit-scrollbar {
     width: 5px;
     height: 5px;
@@ -386,6 +327,101 @@ body {
 
         & .mdc-top-app-bar__title {
             line-height: 0; // required to use an image logo
+        }
+
+        & .search-container {
+            display: grid;
+            grid:
+                "title title title"
+                "name location size"
+                "now soon need"
+                "price comp value";
+            $areas: (name, location, size, now, soon, need);
+            @each $area in $areas {
+                & #critter-#{$area},
+                & #critter-#{$area}__form-field {
+                    grid-area: $area;
+                    width: 400px;
+                    margin: 3px;
+                }
+            }
+            & > div {
+                grid-area: title;
+            }
+            & #price-label {
+                grid-area: price;
+                margin: auto;
+            }
+            & .critter-price-comp {
+                grid-area: comp;
+                width: 400px;
+                margin: 3px;
+            }
+            & #critter-price-value {
+                grid-area: value;
+                width: 400px;
+                margin: 3px;
+            }
+        }
+
+        & .mdc-card.info-panel {
+            display: grid;
+            padding: 16px;
+            grid:
+                "image dry rain"
+                "image label_found found"
+                "image label_price price"
+                "image label_shadow shadow"
+                "obtained modelled modelled";
+            grid-template-columns: 50% 25% 25%;
+
+            & img {
+                grid-area: image;
+                margin: auto;
+            }
+            & .dry-indicator {
+                cursor: default;
+                grid-area: dry;
+                color: $summer;
+                font-size: xx-large;
+            }
+            & .rain-indicator {
+                cursor: default;
+                grid-area: rain;
+                font-size: xx-large;
+            }
+            & .location {
+                grid-area: found;
+                margin: 0.25em;
+            }
+            & .label-location {
+                grid-area: label_found;
+                margin: 0.25em;
+            }
+            & .sell-value {
+                grid-area: price;
+                margin: 0.25em;
+            }
+            & .label-sell-value {
+                grid-area: label_price;
+                margin: 0.25em;
+            }
+            & .shadow-size {
+                grid-area: shadow;
+                margin: 0.25em;
+            }
+            & .label-shadow-size {
+                grid-area: label_shadow;
+                margin: 0.25em;
+            }
+            & .checkbox-obtained {
+                grid-area: obtained;
+                margin: auto;
+            }
+            & .checkbox-modelled {
+                grid-area: modelled;
+                margin: auto;
+            }
         }
     }
 }
