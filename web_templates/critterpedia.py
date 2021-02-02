@@ -17,101 +17,98 @@ async def _generate():
         "Critterpedia",
         ["assets/critterpedia.js"],
         "begin_scripts();load_window_if_required();",
+        components.SearchPanel(),
         mdc.Card(
-            content=dom.ElementGroup(
-                dom.ContentDivision(
-                    dom.Span("Bugs", class_="critter-type"),
-                    dom.Span("0", class_="obtained-count", id="obtained_bugs"),
-                    dom.Span("0", class_="modelled-count", id="modelled_bugs"),
-                    class_="critter-table-title",
-                ),
-                dom.Table(
-                    *[
-                        [
-                            components.CritterPanel(
-                                bug["name"],
-                                bug["normal_name"],
-                                bug["index"],
-                                bug["quote"],
-                                bug["dry"],
-                                bug["rain"],
-                                bug["price"],
-                                bug["location"],
-                                [
-                                    bug[month]
-                                    for month in [
-                                        "jan",
-                                        "feb",
-                                        "mar",
-                                        "apr",
-                                        "may",
-                                        "jun",
-                                        "jul",
-                                        "aug",
-                                        "sep",
-                                        "oct",
-                                        "nov",
-                                        "dec",
-                                    ]
-                                ],
-                                "bugs",
-                            )
-                            for bug in data_bugs[i::5]
-                        ]
-                        for i in range(5)
-                    ]
-                ),
+            dom.ContentDivision(
+                dom.Span("Bugs", class_="critter-type"),
+                dom.Span("0", class_="obtained-count", id="obtained_bugs"),
+                dom.Span("0", class_="modelled-count", id="modelled_bugs"),
+                class_="critter-table-title",
             ),
-            class_="padded-container",
+            content=dom.Table(
+                *[
+                    [
+                        components.CritterPanel(
+                            bug["name"],
+                            bug["normal_name"],
+                            bug["index"],
+                            bug["quote"],
+                            bug["dry"],
+                            bug["rain"],
+                            bug["price"],
+                            bug["location"],
+                            [
+                                bug[month]
+                                for month in [
+                                    "jan",
+                                    "feb",
+                                    "mar",
+                                    "apr",
+                                    "may",
+                                    "jun",
+                                    "jul",
+                                    "aug",
+                                    "sep",
+                                    "oct",
+                                    "nov",
+                                    "dec",
+                                ]
+                            ],
+                            "bugs",
+                        )
+                        for bug in data_bugs[i::5]
+                    ]
+                    for i in range(5)
+                ]
+            ),
+            classes={"padded-container"},
             pad=True,
         ),
         mdc.Card(
-            content=dom.ElementGroup(
-                dom.ContentDivision(
-                    dom.Span("Fish", class_="critter-type"),
-                    dom.Span("0", class_="obtained-count", id="obtained_fish"),
-                    dom.Span("0", class_="modelled-count", id="modelled_fish"),
-                    class_="critter-table-title",
-                ),
-                dom.Table(
-                    *[
-                        [
-                            components.CritterPanel(
-                                fish["name"],
-                                fish["normal_name"],
-                                fish["index"],
-                                fish["quote"],
-                                fish["dry"],
-                                fish["rain"],
-                                fish["price"],
-                                fish["location"],
-                                [
-                                    fish[month]
-                                    for month in [
-                                        "jan",
-                                        "feb",
-                                        "mar",
-                                        "apr",
-                                        "may",
-                                        "jun",
-                                        "jul",
-                                        "aug",
-                                        "sep",
-                                        "oct",
-                                        "nov",
-                                        "dec",
-                                    ]
-                                ],
-                                "fish",
-                                fish["shadow"],
-                            )
-                            for fish in data_fish[i::5]
-                        ]
-                        for i in range(5)
-                    ]
-                ),
+            dom.ContentDivision(
+                dom.Span("Fish", class_="critter-type"),
+                dom.Span("0", class_="obtained-count", id="obtained_fish"),
+                dom.Span("0", class_="modelled-count", id="modelled_fish"),
+                class_="critter-table-title",
             ),
-            class_="padded-container",
+            content=dom.Table(
+                *[
+                    [
+                        components.CritterPanel(
+                            fish["name"],
+                            fish["normal_name"],
+                            fish["index"],
+                            fish["quote"],
+                            fish["dry"],
+                            fish["rain"],
+                            fish["price"],
+                            fish["location"],
+                            [
+                                fish[month]
+                                for month in [
+                                    "jan",
+                                    "feb",
+                                    "mar",
+                                    "apr",
+                                    "may",
+                                    "jun",
+                                    "jul",
+                                    "aug",
+                                    "sep",
+                                    "oct",
+                                    "nov",
+                                    "dec",
+                                ]
+                            ],
+                            "fish",
+                            fish["shadow"],
+                        )
+                        for fish in data_fish[i::5]
+                    ]
+                    for i in range(5)
+                ]
+            ),
+            classes={"padded-container"},
             pad=True,
         ),
     ).serialise()

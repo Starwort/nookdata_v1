@@ -406,7 +406,7 @@ window.search_parameters = search_parameters;
 
 function search_critters() {
     for (let card_id of card_sets) {
-        card = document.getElementById("card_" + card_id)
+        card = document.getElementById("card_" + card_id);
         card.classList.remove("no-match");
         if (search_parameters.name) {
             if (!card.name
@@ -435,5 +435,30 @@ function search_critters() {
                 card.classList.add("no-match");
             }
         }
+        if (search_parameters.unobtained_only) {
+            if (card.obtained) {
+                card.classList.add("no-match");
+            }
+        }
+        if (search_parameters.price) {
+            if (search_parameters.price_comp == '>=') {
+                if (card.price < search_parameters.price) {
+                    card.classList.add("no-match");
+                }
+            } else if (search_parameters.price_comp == '<=') {
+                if (card.price > search_parameters.price) {
+                    card.classList.add("no-match");
+                }
+            } else if (search_parameters.price_comp == '=') {
+                if (card.price != search_parameters.price) {
+                    card.classList.add("no-match");
+                }
+            }
+        }
     }
 }
+const price_dropdown = document.getElementById('critter-price-comp').mdc_dropdown;
+price_dropdown.listen('MDCSelect:change', () => {
+    search_parameters.price_comp = price_dropdown.value;
+    search_critters();
+});

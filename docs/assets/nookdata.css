@@ -427,6 +427,9 @@ body[theme] .mdc-top-app-bar {
 body[theme] .mdc-card.card-current {
   border: 2px solid var(--mdc-theme-error);
 }
+body[theme] .mdc-top-app-bar__title {
+  line-height: 0;
+}
 
 .mdc-drawer-app-content {
   flex: auto;

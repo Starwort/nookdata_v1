@@ -24,11 +24,19 @@ class NookDataPage(dom.Component):
                 mdc.MaterialDesignInitialiser("assets"),
                 dom.Title(f"{page_title} | NookData"),
                 dom.Link(rel="stylesheet", href="assets/nookdata.css"),
+                dom.Link(rel="icon", href="assets/shared/nookdata-logo.png"),
                 dom.Script(src="assets/nookdata.js"),
                 *[dom.Script(src=script) for script in included_scripts],
             ),
             dom.Body(
-                mdc.AppBar("NookData", mdc.ThemeSwitcherButton()),
+                mdc.AppBar(
+                    dom.Image(
+                        "eager",
+                        src="assets/shared/nookdata-text.png",
+                        style="height: 2em",
+                    ),
+                    mdc.ThemeSwitcherButton(),
+                ),
                 mdc.NavigationDrawer(NAVIGATION_ITEMS),
                 mdc.AppContent(
                     dom.MainContent(

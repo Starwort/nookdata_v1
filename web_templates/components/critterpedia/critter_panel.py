@@ -28,7 +28,7 @@ class CritterPanel(Component):
         self.content = ElementGroup(
             Card(
                 IdiomaticText(
-                    "help",  # TODO: make responsive
+                    "help",
                     id=f"icon_{type}_{index:0>2}",
                     classes={"material-icons"},
                 ),
