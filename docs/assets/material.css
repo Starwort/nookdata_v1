@@ -33713,3 +33713,13 @@ body:not([theme=light]) .mdc-select__selected-text-container {
   width: 100%;
   text-align: left;
 }
+
+body {
+  transition: opacity 0.1s ease-in-out, background-color 0.1s ease-in-out;
+}
+body.theme-transition {
+  opacity: 0;
+}
+body.theme-transition * {
+  transition: none !important;
+}

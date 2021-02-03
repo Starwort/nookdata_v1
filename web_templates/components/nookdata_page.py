@@ -1,9 +1,7 @@
 import dom_generator as dom
 import dom_generator.material_design as mdc
 
-NAVIGATION_ITEMS = [
-    mdc.NavigationItem("emoji_nature", "critterpedia.html", "Critterpedia"),
-]
+from .. import NAVIGATION_ITEMS
 
 
 class NookDataPage(dom.Component):
